@@ -570,11 +570,27 @@ html:not(.dark) .icon-moon {
   font-size: 0.88rem;
 }
 
+.footer-brand {
+  color: var(--color-on-ink);
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-on-ink-faint) 45%, transparent);
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+}
+
 .footer-socials {
   display: flex;
   gap: 1.25rem;
   flex-wrap: wrap;
-  margin-bottom: 0.5rem;
 }
 
 .footer-socials a {
@@ -1076,7 +1092,7 @@ h3 {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 1.25rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
 }
 
 .footer-nav a {
@@ -1087,8 +1103,8 @@ h3 {
   align-items: center;
 }
 
-.footer-meta + .footer-meta {
-  margin-top: 0.15rem;
+.footer-bottom .footer-meta {
+  margin: 0;
 }
 
 /* ---------- Print: ink-saving, link destinations visible ---------- */
@@ -1111,7 +1127,8 @@ h3 {
 
   .card,
   .dark-band,
-  .site-footer {
+  .site-footer,
+  .footer-bottom {
     background: #fff !important;
     color: #000 !important;
     border-color: #999 !important;
