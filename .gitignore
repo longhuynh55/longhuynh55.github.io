@@ -1,0 +1,24 @@
+# Python venv
+.venv/
+
+# Node
+node_modules/
+dist/
+
+# Astro
+.astro/
+
+# Sapling / Eden metadata (workspace also uses Sapling; never push to GitHub)
+.sl/
+.hg/
+.eden/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# PowerShell module cache (auto-regenerates when running shells here)
+Microsoft/
+
+# Local secrets — never commit
+sshkey.txt
