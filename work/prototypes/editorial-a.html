@@ -1,0 +1,123 @@
+<!doctype html>
+<!-- Prototype A — Editorial systems (preferred). Isolated preview under work/, never a production route.
+     Same publishable subset as B: real name/role, CASK record, Finnovative/DAZONE awards, paper title/venue
+     marked UNVERIFIED prototype copy, two Lab entries with provisional state labels. Tokens = DESIGN.md §4. -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prototype A — Editorial systems</title>
+<style>
+  :root{
+    --color-bg:#F7F5EF; --color-surface:#FFFEFA; --color-surface-muted:#ECEEE7;
+    --color-text:#202722; --color-text-muted:#59645C; --color-accent:#285640;
+    --color-accent-hover:#1B402E; --color-accent-ink:#214A35; --color-spot:#C9E875;
+    --color-ink-block:#173B2C; --color-border:#D4DBD1; --color-tag-bg:#E3EBDD;
+    --color-on-ink:#F3F5EC; --color-on-ink-muted:#C2D1C4; --color-on-ink-faint:#ACBFAF;
+    --color-focus:#285640; --color-focus-on-ink:#C9E875;
+  }
+  [data-theme="dark"]{
+    --color-bg:#151917; --color-surface:#1D2320; --color-surface-muted:#262E29;
+    --color-text:#F3F4ED; --color-text-muted:#B1BDB3; --color-accent:#91C8A5;
+    --color-accent-hover:#B7DFBF; --color-accent-ink:#B7DFBF; --color-spot:#C9E875;
+    --color-ink-block:#102B20; --color-border:#455349; --color-tag-bg:#2A3B30;
+    --color-on-ink:#F3F5EC; --color-on-ink-muted:#C2D1C4; --color-on-ink-faint:#ACBFAF;
+    --color-focus:#C9E875; --color-focus-on-ink:#C9E875;
+  }
+  *{box-sizing:border-box} body{margin:0;background:var(--color-bg);color:var(--color-text);
+    font:17px/1.65 "Inter",system-ui,sans-serif}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  @media(max-width:1023px){.wrap{padding:0 32px}} @media(max-width:767px){.wrap{padding:0 20px}}
+  .proto-bar{font:13px/1.5 "JetBrains Mono",monospace;background:var(--color-tag-bg);color:var(--color-accent-ink);
+    padding:8px 0;border-bottom:1px solid var(--color-border)}
+  section{padding:112px 0} @media(max-width:767px){section{padding:64px 0}}
+  .hero{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:center}
+  .hero-copy{grid-column:1/8} .hero-fig{grid-column:8/13}
+  @media(max-width:767px){.hero-copy,.hero-fig{grid-column:1/-1}}
+  h1.name{font-family:"Space Grotesk",sans-serif;font-size:clamp(44px,8vw,104px);
+    line-height:1.02;letter-spacing:-0.02em;margin:.2em 0}
+  .role{font-weight:600} .statement{max-width:38ch;color:var(--color-text)}
+  .ctas{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 20px;min-height:44px;background:var(--color-accent);color:var(--color-surface);
+    border-radius:8px;text-decoration:none;font-weight:600}
+  .btn.ghost{background:transparent;color:var(--color-accent);border:1px solid var(--color-accent)}
+  :focus-visible{outline:3px solid var(--color-focus);outline-offset:3px}
+  .exp{display:grid;grid-template-columns:3fr 9fr;gap:24px} @media(max-width:767px){.exp{grid-template-columns:1fr}}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--color-text-muted)}
+  .awards{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:767px){.awards{grid-template-columns:1fr}}
+  .award{border:1px solid var(--color-border);border-radius:10px;padding:16px;background:var(--color-surface)}
+  .research{background:var(--color-ink-block);color:var(--color-on-ink);border-radius:12px;padding:32px;margin-top:24px}
+  .research .mono{color:var(--color-on-ink-muted)} .research :focus-visible{outline-color:var(--color-focus-on-ink)}
+  .research a{color:var(--color-on-ink)}
+  .lab{display:grid;grid-template-columns:7fr 5fr;gap:24px;align-items:center;margin-top:48px}
+  .lab.flip{grid-template-columns:5fr 7fr} @media(max-width:767px){.lab,.lab.flip{grid-template-columns:1fr}}
+  figure{margin:0;border:1px solid var(--color-border);border-radius:10px;background:var(--color-surface);padding:16px}
+  figcaption{font-size:13px;color:var(--color-text-muted);margin-top:8px}
+  .tag{display:inline-block;background:var(--color-tag-bg);color:var(--color-accent-ink);
+    border-radius:6px;padding:2px 8px;font-size:13px;margin-right:6px}
+  footer{padding:48px 0;border-top:1px solid var(--color-border)}
+</style>
+</head>
+<body>
+<div class="proto-bar"><div class="wrap">PROTOTYPE A — internal composition study. Paper venue/status UNVERIFIED · Lab states PROVISIONAL (Idea / Exploring) · <button id="t" type="button">toggle theme</button></div></div>
+<div class="wrap">
+  <section class="hero" aria-label="Hero">
+    <div class="hero-copy">
+      <p class="mono">Data Analyst · Ho Chi Minh City</p>
+      <h1 class="name">Liêu Hoài Phúc</h1>
+      <p class="role">Data Analyst turning operations into decisions</p>
+      <p class="statement">I build data systems that turn operations into decisions — from warehouse layers and automated reporting to methodical experiments and research.</p>
+      <div class="ctas"><a class="btn" href="#lab">Explore my work</a><a class="btn ghost" href="/resume.pdf">View CV</a></div>
+    </div>
+    <figure class="hero-fig" role="img" aria-label="Conceptual diagram: sources become transformations become insights">
+      <svg viewBox="0 0 320 200" width="100%" role="img" aria-labelledby="ahero">
+        <title id="ahero">Sources, transformations, insights</title>
+        <g font-family="monospace" font-size="10" fill="currentColor">
+          <rect x="8" y="30" width="80" height="34" rx="6" fill="none" stroke="currentColor"/><text x="18" y="51">sources</text>
+          <rect x="8" y="80" width="80" height="34" rx="6" fill="none" stroke="currentColor"/><text x="18" y="101">events</text>
+          <rect x="120" y="55" width="80" height="34" rx="6" fill="none" stroke="currentColor"/><text x="130" y="76">transform</text>
+          <rect x="232" y="55" width="80" height="34" rx="6" fill="none" stroke="currentColor"/><text x="242" y="76">insight</text>
+          <line x1="88" y1="47" x2="120" y2="66" stroke="currentColor"/><line x1="88" y1="97" x2="120" y2="76" stroke="currentColor"/>
+          <line x1="200" y1="72" x2="232" y2="72" stroke="currentColor"/>
+        </g>
+      </svg>
+      <figcaption>Conceptual practice diagram — not a company system.</figcaption>
+    </figure>
+  </section>
+  <section aria-label="Experience">
+    <p class="mono">Experience</p>
+    <div class="exp"><div class="mono">01/2026 – 05/2026<br/>CASK · HCMC</div>
+      <div><strong>Data Analyst</strong>
+        <ul><li>Built warehouse and reporting layers for operational datasets.</li>
+        <li>Automated recurring SQL / Excel / Power BI / Python workflows.</li>
+        <li>Defined reusable KPI logic with validation checks.</li></ul></div></div>
+  </section>
+  <section aria-label="Achievements and Research">
+    <p class="mono">Achievements &amp; Research</p>
+    <div class="awards">
+      <div class="award"><strong>Finnovative Hackathon 2026 — 1st Place</strong><p class="mono">17-01-2026 · evidence on file</p></div>
+      <div class="award"><strong>DAZONE 2025 — Top 10 Finalist</strong><p class="mono">2025 · exact date unverified</p></div>
+    </div>
+    <div class="research" id="research">
+      <p class="mono">Research feature · UNVERIFIED prototype copy</p>
+      <h2>Financial-Condition-Guided Retrieval for Adaptive Bayesian Decision Forecasting Under Structural Breaks</h2>
+      <p class="mono">DMO Fintech 2026 Workshop @ PAKDD, Hong Kong · review/publication status unverified</p>
+      <p>Question: can financial-condition signals guide retrieval for adaptive forecasting when regimes break?</p>
+      <p><a href="#research">Paper</a> · <a href="#research">Preprint</a> · links activate only with verified URLs</p>
+    </div>
+  </section>
+  <section id="lab" aria-label="Lab sample">
+    <p class="mono">Projects / Lab · shared sample</p>
+    <div class="lab"><figure>Lab graphic 1<figcaption>Concept diagram for PROVISIONAL state: Exploring.</figcaption></figure>
+      <div><span class="tag">Exploring</span><h2>HCMC Last-Mile Data Platform</h2><p>Problem, hypothesis, next experiment — no shipped claim.</p></div></div>
+    <div class="lab flip"><div><span class="tag">Idea</span><h2>QuantVN Stock Analytics</h2><p>Target outcome is not an observed result.</p></div>
+      <figure>Lab graphic 2<figcaption>Distinct concept diagram, captioned as conceptual.</figcaption></figure></div>
+  </section>
+  <section aria-label="Certifications and Writing samples"><p class="mono">Certifications · Writing · shared samples</p>
+    <p>Associate Data Analyst — DataCamp (2026) · Data Science — edX/HarvardX (2026) · <a href="/certificates">All certificates</a></p>
+    <p>Selected Writing renders only with public entries; external links go direct to source.</p></section>
+</div>
+<footer><div class="wrap mono">Prototype A · 1200px · tokens only · <a href="#">About</a> · <a href="#">Contact</a></div></footer>
+<script>document.getElementById('t').onclick=()=>{const h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light'};</script>
+</body>
+</html>

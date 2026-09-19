@@ -1,0 +1,33 @@
+---
+import { site } from '../config';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-socials">
+      <a href={site.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+    <nav class="footer-nav" aria-label="Sitemap">
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+      <a href="/certificates">Certificates</a>
+      <a href="/projects">Lab</a>
+      <a href="/blog">Writing</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/resume.pdf">Resume</a>
+    </nav>
+    <p class="footer-meta">
+      Set in <a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener noreferrer">Inter</a>,
+      <a href="https://fonts.google.com/specimen/Space+Grotesk" target="_blank" rel="noopener noreferrer">Space Grotesk</a> and
+      <a href="https://fonts.google.com/specimen/JetBrains+Mono" target="_blank" rel="noopener noreferrer">JetBrains Mono</a>.
+    </p>
+    <p class="footer-meta">
+      {site.name} · {site.role} · {site.location} · © {new Date().getFullYear()}
+    </p>
+    <p class="footer-meta">
+      Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Validation — Forest Evolve</title>
+<style>
+  :root {
+    --color-bg: #F4F1E8;
+    --color-surface: #FCFBF6;
+    --color-surface-muted: #EAF1E9;
+    --color-text: #1D2923;
+    --color-text-muted: #5A6B60;
+    --color-accent: #2D5A3D;
+    --color-accent-ink: #1F5C45;
+    --color-accent-hover: #1F5C45;
+    --color-spot: #C7E86B;
+    --color-border: #D5DFD2;
+    --color-tag-bg: #DCEDE3;
+    --color-ink-block: #12372A;
+    --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+    --font-body: "Inter", "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  html.dark {
+    --color-bg: #0B241B;
+    --color-surface: #123A2B;
+    --color-surface-muted: #18513A;
+    --color-text: #F1F5E9;
+    --color-text-muted: #9CB3A2;
+    --color-accent: #6FD89A;
+    --color-accent-ink: #63C48D;
+    --color-accent-hover: #8FE5B2;
+    --color-spot: #A8D86E;
+    --color-border: #286047;
+    --color-tag-bg: #244B35;
+    --color-ink-block: #12372A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--color-bg); color: var(--color-text);
+    font-family: var(--font-body); font-size: 16px; line-height: 1.65;
+    padding: 2rem 1.5rem 4rem;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); margin: 0 0 .5rem; }
+  h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.02em; line-height: 1.1; }
+  .muted { color: var(--color-text-muted); }
+  .mono { font-family: var(--font-mono); }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: .78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .14em; color: var(--color-accent);
+    margin-bottom: .75rem;
+  }
+  /* Hero split */
+  .hero-grid { display: grid; grid-template-columns: 1.2fr .9fr; gap: 2.5rem; align-items: start; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+  .hero-panel {
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: 12px; padding: 1.25rem;
+  }
+  .hero-panel .panel-label { font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--color-text-muted); margin-bottom: .9rem; }
+  .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .stat-card { background: var(--color-surface-muted); border-radius: 8px; padding: .85rem .9rem; }
+  .stat-card .num { font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; color: var(--color-accent); line-height: 1.15; }
+  .stat-card .lbl { font-size: .8rem; color: var(--color-text-muted); }
+  .btn-row { display: flex; gap: .75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: .6rem 1.3rem; border-radius: 8px; font-weight: 600;
+    text-decoration: none; font-size: .95rem;
+  }
+  .btn-primary { background: var(--color-accent); color: #FFFFFF; }
+  html.dark .btn-primary { color: #0B241B; }
+  .btn-primary:hover { background: var(--color-accent-hover); }
+  .btn-ghost { border: 1px solid var(--color-border); color: var(--color-text); }
+  .btn-ghost:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  .socials { display: flex; gap: 1rem; margin-top: 1.25rem; }
+  .socials a { color: var(--color-text-muted); text-decoration: none; font-family: var(--font-mono); font-size: .85rem; }
+  .socials a:hover { color: var(--color-accent); }
+  /* Sections */
+  section { margin: 3.5rem 0; }
+  .section-head { display: flex; align-items: baseline; gap: .8rem; margin-bottom: 1.4rem; }
+  .section-num { font-family: var(--font-mono); font-size: .85rem; color: var(--color-text-muted); }
+  .section-title { font-size: 1.6rem; letter-spacing: -0.01em; }
+  /* Project card = fubits Entry + Ali metrics */
+  .project-card {
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: 12px; overflow: hidden; transition: border-color .2s;
+  }
+  .project-card:hover { border-color: var(--color-accent); }
+  .project-card + .project-card { margin-top: 1.5rem; }
+  .thumb { aspect-ratio: 16/10; background: var(--color-surface-muted); display:flex; align-items:center; justify-content:center; }
+  .thumb svg { width: 100%; height: 100%; display:block; }
+  .project-body { padding: 1.15rem 1.25rem 1.3rem; }
+  .kicker { font-family: var(--font-mono); font-size: .74rem; text-transform: uppercase; letter-spacing: .13em; color: var(--color-accent); }
+  .project-title { font-size: 1.3rem; margin: .3rem 0 .45rem; }
+  .metrics { display: flex; gap: .5rem; flex-wrap: wrap; margin: .7rem 0; }
+  .metric-pill {
+    font-family: var(--font-mono); font-size: .76rem; padding: .28rem .6rem;
+    border-radius: 999px; background: var(--color-tag-bg); color: var(--color-accent-ink);
+  }
+  html.dark .metric-pill { color: var(--color-accent); }
+  .tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .8rem; }
+  .tag { font-family: var(--font-mono); font-size: .72rem; padding: .22rem .55rem; border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text-muted); }
+  .card-links { display: flex; gap: 1.1rem; margin-top: 1rem; }
+  .card-links a { color: var(--color-accent); text-decoration: none; font-size: .9rem; font-weight: 600; }
+  .card-links a:hover .arrow { display: inline; }
+  .arrow { display: none; }
+  /* Publication dark band */
+  .dark-band {
+    background: var(--color-ink-block); color: #F1F5E9; border-radius: 12px;
+    padding: 2rem 2.2rem; position: relative; overflow: hidden;
+  }
+  .dark-band .band-kicker { font-family: var(--font-mono); font-size: .74rem; text-transform: uppercase; letter-spacing: .14em; color: var(--color-spot); margin-bottom: .7rem; }
+  .dark-band h3 { color: #FFFFFF; font-size: 1.45rem; max-width: 46ch; }
+  .dark-band p { color: #C9DACC; max-width: 62ch; }
+  .dark-band a { color: var(--color-spot); text-decoration: none; font-weight: 600; }
+  /* Stats strip */
+  .stats-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: 1.4rem 0; }
+  .strip-stat .num { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent); }
+  .strip-stat .lbl { font-size: .82rem; color: var(--color-text-muted); }
+  .note { font-family: var(--font-mono); font-size: .75rem; color: var(--color-text-muted); margin-top: 2.5rem; border-top: 1px dashed var(--color-border); padding-top: .8rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="eyebrow">Design Validation · Forest Evolve</div>
+  <div class="hero-grid">
+    <div>
+      <h1>Liêu Hoài Phúc</h1>
+      <p class="muted">Data Analyst / Analytics Engineer · Ho Chi Minh City</p>
+      <p>I build data products that turn raw operational data into decisions — from dashboard automation and business reporting to data warehouse development.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#">View Projects</a>
+        <a class="btn btn-ghost" href="#">Download CV</a>
+      </div>
+      <div class="socials">
+        <a href="#">github</a><a href="#">linkedin</a><a href="#">email</a>
+      </div>
+    </div>
+    <aside class="hero-panel">
+      <div class="panel-label">Core stack</div>
+      <div class="stat-cards">
+        <div class="stat-card"><div class="num">2</div><div class="lbl">End-to-End Data Platforms</div></div>
+        <div class="stat-card"><div class="num">3</div><div class="lbl">Competition Finals · 1× 1st</div></div>
+        <div class="stat-card"><div class="num">1</div><div class="lbl">First-Author Publication</div></div>
+        <div class="stat-card"><div class="num">8-10h</div><div class="lbl">Saved / month (automated)</div></div>
+      </div>
+    </aside>
+  </div>
+
+  <section>
+    <div class="stats-strip">
+      <div class="strip-stat"><div class="num">2</div><div class="lbl">End-to-End Data Platforms</div></div>
+      <div class="strip-stat"><div class="num">3</div><div class="lbl">Competition Finals · 1× 1st Place</div></div>
+      <div class="strip-stat"><div class="num">1</div><div class="lbl">First-Author Publication · PAKDD 2026</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">01 —</span><h2 class="section-title">Featured Work</h2></div>
+
+    <article class="project-card">
+      <div class="thumb">
+        <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QuantVN thumbnail placeholder">
+          <rect width="640" height="400" fill="#0E2A1F"/>
+          <g stroke="#1F5C45" stroke-width="1">
+            <line x1="0" y1="100" x2="640" y2="100"/><line x1="0" y1="200" x2="640" y2="200"/><line x1="0" y1="300" x2="640" y2="300"/>
+          </g>
+          <polyline points="20,330 90,300 160,315 230,250 300,270 370,190 440,210 510,140 580,160 630,110" fill="none" stroke="#63C48D" stroke-width="3"/>
+          <polyline points="20,350 90,340 160,345 230,310 300,320 370,270 440,285 510,230 580,245 630,205" fill="none" stroke="#C7E86B" stroke-width="2" opacity=".7"/>
+          <rect x="20" y="20" width="180" height="26" rx="6" fill="#12372A"/>
+          <text x="32" y="38" font-family="monospace" font-size="14" fill="#C7E86B">QUANTVN · REGIME</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <span class="kicker">quantvn · regime-filter</span>
+        <h3 class="project-title">QuantVN — Stock Market Analytics</h3>
+        <p class="muted">Built an end-to-end market analytics platform for VN30 equities: ingestion, regime detection and signal research.</p>
+        <div class="metrics">
+          <span class="metric-pill">3y daily data</span>
+          <span class="metric-pill">30 tickers</span>
+          <span class="metric-pill">dbt + BigQuery</span>
+        </div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">dbt</span><span class="tag">BigQuery</span><span class="tag">Power BI</span></div>
+        <div class="card-links">
+          <a href="#">Live <span class="arrow">↗</span></a>
+          <a href="#">Code <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="thumb">
+        <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HCMC Last-Mile thumbnail placeholder">
+          <rect width="640" height="400" fill="#0E2A1F"/>
+          <g stroke="#1F5C45" stroke-width="1">
+            <path d="M80 40 L140 140 L100 260 L170 360" fill="none"/>
+            <path d="M200 30 L260 120 L230 250 L300 370" fill="none"/>
+            <path d="M340 50 L400 150 L370 270 L440 350" fill="none"/>
+            <path d="M480 40 L540 130 L510 260 L580 360" fill="none"/>
+          </g>
+          <g fill="#63C48D">
+            <circle cx="140" cy="140" r="7"/><circle cx="260" cy="120" r="7"/><circle cx="400" cy="150" r="7"/><circle cx="540" cy="130" r="7"/>
+          </g>
+          <g fill="#C7E86B"><circle cx="80" cy="40" r="5"/><circle cx="340" cy="50" r="5"/><circle cx="480" cy="40" r="5"/></g>
+          <rect x="20" y="20" width="230" height="26" rx="6" fill="#12372A"/>
+          <text x="32" y="38" font-family="monospace" font-size="14" fill="#C7E86B">LAST-MILE · ROUTE OPT</text>
+        </svg>
+      </div>
+      <div class="project-body">
+        <span class="kicker">last-mile · route-optimization</span>
+        <h3 class="project-title">HCMC Last-Mile Data Platform</h3>
+        <p class="muted">Built a delivery analytics platform modeling courier trajectories and depot assignments for last-mile optimization.</p>
+        <div class="metrics">
+          <span class="metric-pill">GPS trajectories</span>
+          <span class="metric-pill">ETL orchestration</span>
+          <span class="metric-pill">Airflow</span>
+        </div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Airflow</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span></div>
+        <div class="card-links">
+          <a href="#">Live <span class="arrow">↗</span></a>
+          <a href="https://github.com/YOUR-GITHUB-USERNAME">Code <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <div class="dark-band">
+      <div class="band-kicker">First-Author Publication</div>
+      <h3>Financial-Condition-Guided Retrieval for Adaptive Bayesian Decision Forecasting Under Structural Breaks</h3>
+      <p>DMO Fintech 2026 Workshop @ PAKDD Conference, Hong Kong · Liêu Hoài Phúc (first author)</p>
+      <p>First-author workshop paper on retrieval augmented with financial-condition signals for adaptive Bayesian decision forecasting under structural breaks.</p>
+      <p><a href="#">Read paper →</a></p>
+    </div>
+  </section>
+
+  <div class="note">mockup · Forest Evolve tokens · light mode (default)</div>
+</div>
+</body>
+</html>

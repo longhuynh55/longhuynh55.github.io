@@ -1,0 +1,59 @@
+---
+// Shared table of contents for long-form pages (project case studies, blog posts).
+// Expects the `headings` array returned by Astro's `render(entry)` helper.
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  toc.length > 0 && (
+    <nav class="toc" aria-label="Table of contents">
+      <p class="toc-title">On this page</p>
+      <ul>
+        {toc.map((h) => (
+          <li class={h.depth === 3 ? 'toc-sub' : undefined}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  // Scrollspy: highlights the TOC entry for the heading in the viewport
+  // focus band. Pure anchor links without JS.
+  const toc = document.querySelector('.toc');
+  const links = toc ? Array.from(toc.querySelectorAll('a')) : [];
+  const setActive = (id: string) => {
+    for (const link of links) {
+      const on = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('is-active', on);
+      if (on) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  };
+  if (toc && 'IntersectionObserver' in window) {
+    const heads = Array.from(document.querySelectorAll('.prose h2[id], .prose h3[id]'));
+    if (heads.length > 0) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
+        },
+        { rootMargin: '-35% 0px -55% 0px' }
+      );
+      heads.forEach((h) => io.observe(h));
+    }
+  }
+</script>

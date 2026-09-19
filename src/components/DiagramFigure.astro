@@ -1,0 +1,145 @@
+---
+// Signature diagram grammar — shared node/connector/annotation system reused by
+// the hero practice figure and Lab concept figures (DESIGN.md §8: consistent
+// nodes, connectors, thin rules and figure annotations; readable static, no
+// motion dependency). Colors come from CSS variables only.
+interface Node {
+  label: string;
+  emphasis?: boolean;
+}
+interface Props {
+  variant: 'hero' | 'lab';
+  labStatus?: string;
+}
+
+const { variant, labStatus = 'draft' } = Astro.props;
+
+const heroNodes: { layer: string; nodes: Node[] }[] = [
+  { layer: 'sources', nodes: [{ label: 'orders' }, { label: 'events' }, { label: 'crm' }] },
+  { layer: 'transform', nodes: [{ label: 'clean' }, { label: 'model' }, { label: 'check' }] },
+  { layer: 'insight', nodes: [{ label: 'decisions', emphasis: true }] },
+];
+---
+
+<svg
+  viewBox={variant === 'hero' ? '0 0 360 240' : '0 0 360 180'}
+  role="img"
+  aria-labelledby={`fig-${variant}-title`}
+  class={`diagram diagram-${variant}`}
+>
+  <title id={`fig-${variant}-title`}>
+    {variant === 'hero' ? 'Data practice: sources, transformations, insight' : `Lab concept: problem, current state (${labStatus}), next test`}
+  </title>
+  <defs>
+    <marker id={`arrow-${variant}`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--color-text-muted)" />
+    </marker>
+  </defs>
+  {
+    variant === 'hero' ? (
+      <g class="dg-layers">
+        {heroNodes.map((col, ci) => {
+          const x = 12 + ci * 120;
+          return (
+            <g>
+              <text x={x} y="26" class="dg-layer-label">{col.layer}</text>
+              {col.nodes.map((n, ni) => {
+                const y = 44 + ni * 58;
+                return n.emphasis ? (
+                  <g>
+                    <rect x={x} y={y} width="96" height="40" rx="8" class="dg-node dg-node-emphasis" />
+                    <text x={x + 48} y={y + 25} class="dg-node-label dg-node-label-emphasis">{n.label}</text>
+                  </g>
+                ) : (
+                  <g>
+                    <rect x={x} y={y} width="96" height="40" rx="8" class="dg-node" />
+                    <text x={x + 48} y={y + 25} class="dg-node-label">{n.label}</text>
+                  </g>
+                );
+              })}
+            </g>
+          );
+        })}
+        {/* connectors: sources → transform */}
+        <line x1="108" y1="64" x2="132" y2="64" class="dg-link" marker-start={`url(#arrow-${variant})`} />
+        <line x1="108" y1="122" x2="132" y2="122" class="dg-link" marker-start={`url(#arrow-${variant})`} />
+        <line x1="108" y1="180" x2="132" y2="180" class="dg-link" marker-start={`url(#arrow-${variant})`} />
+        {/* transform → insight */}
+        <line x1="228" y1="122" x2="252" y2="122" class="dg-link" marker-start={`url(#arrow-${variant})`} />
+        {/* thin rule annotation */}
+        <line x1="252" y1="206" x2="336" y2="206" class="dg-rule" />
+        <text x="252" y="222" class="dg-annotation">validated · current</text>
+      </g>
+    ) : (
+      <g class="dg-layers">
+        <text x="12" y="26" class="dg-layer-label">problem</text>
+        <rect x="12" y="40" width="96" height="40" rx="8" class="dg-node" />
+        <text x="60" y="65" class="dg-node-label">messy</text>
+        <text x="132" y="26" class="dg-layer-label">{labStatus}</text>
+        <rect x="132" y="40" width="96" height="40" rx="8" class="dg-node dg-node-state" />
+        <text x="180" y="65" class="dg-node-label">{labStatus}</text>
+        <text x="252" y="26" class="dg-layer-label">next test</text>
+        <rect x="252" y="40" width="96" height="40" rx="8" class="dg-node dg-node-next" />
+        <text x="300" y="65" class="dg-node-label">learn</text>
+        <line x1="108" y1="60" x2="132" y2="60" class="dg-link" marker-start={`url(#arrow-${variant})`} />
+        <line x1="228" y1="60" x2="252" y2="60" class="dg-link" marker-start={`url(#arrow-${variant})`} />
+        {/* hypothesis loop back */}
+        <path d="M 300 80 L 300 120 L 180 120 L 180 84" class="dg-link dg-link-loop" fill="none" />
+        <text x="196" y="138" class="dg-annotation">hypothesis → next experiment</text>
+      </g>
+    )
+  }
+</svg>
+
+<style is:global>
+  .diagram .dg-layer-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--color-text-muted);
+  }
+  .diagram .dg-node {
+    fill: var(--color-surface);
+    stroke: var(--color-accent);
+    stroke-width: 1.5;
+  }
+  .diagram .dg-node-emphasis {
+    fill: var(--color-spot);
+    stroke: none;
+  }
+  .diagram .dg-node-state {
+    stroke-dasharray: 5 3;
+  }
+  .diagram .dg-node-next {
+    stroke: var(--color-border);
+    stroke-width: 1.5;
+  }
+  .diagram .dg-node-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-anchor: middle;
+    fill: var(--color-text);
+  }
+  .diagram .dg-node-label-emphasis {
+    fill: var(--color-on-spot);
+    font-weight: 700;
+  }
+  .diagram .dg-link {
+    stroke: var(--color-text-muted);
+    stroke-width: 1.5;
+  }
+  .diagram .dg-link-loop {
+    stroke-dasharray: 4 4;
+    stroke: var(--color-accent);
+  }
+  .diagram .dg-rule {
+    stroke: var(--color-border);
+    stroke-width: 1;
+  }
+  .diagram .dg-annotation {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    fill: var(--color-text-muted);
+  }
+</style>

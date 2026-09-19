@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import DiagramFigure from '../../components/DiagramFigure.astro';
+import { contentDate, sortSelected } from '../../lib/content';
+
+const projects = sortSelected(await getCollection('projects'), contentDate.project);
+
+const labCta: Record<string, string> = {
+  idea: 'Explore the idea',
+  exploring: 'Explore the experiment',
+  prototype: 'View the prototype',
+  released: 'View the project',
+};
+---
+
+<Base title="Lab" description="Lab — ideas and experiments developed methodically, with honest status.">
+  <div class="archive-head">
+    <p class="ed-eyebrow">Projects / Lab</p>
+    <h1>Lab</h1>
+    <p class="ed-lede">Ideas developed methodically. Every entry shows its real state — targets are not results.</p>
+  </div>
+
+  {projects.length === 0 ? (
+    <div>
+      <p class="muted">Lab entries are in draft while their states are verified — meanwhile, start here:</p>
+      <ul class="post-list">
+        <li><a href="/#experience">Experience</a></li>
+        <li><a href="/certificates">Certificates</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  ) : (
+    <div>
+      {projects.map((p, i) => (
+        <article class={`lab-feature reveal${i % 2 === 1 ? ' flip' : ''}`}>
+          {p.data.image ? (
+            <Image src={p.data.image} alt={`${p.data.title} illustration`} class="ed-figure" />
+          ) : (
+            <figure class="ed-figure" role="img" aria-label={`Conceptual diagram for ${p.data.title}`}>
+              <DiagramFigure variant="lab" labStatus={p.data.status ?? 'draft'} />
+              <figcaption>Conceptual — not a product screenshot.</figcaption>
+            </figure>
+          )}
+          <div class="lab-copy">
+            {p.data.status && <span class="state-tag">{p.data.status}</span>}
+            <h3><a href={`/projects/${p.id}`}>{p.data.title}</a></h3>
+            <p>{p.data.description}</p>
+            {p.data.status !== 'released' && p.data.hypothesis && <p>Hypothesis: {p.data.hypothesis}</p>}
+            {p.data.status === 'released' && p.data.outcome && <p class="outcome">{p.data.outcome}</p>}
+            {p.data.nextStep && <p>Next: {p.data.nextStep}</p>}
+            {p.data.tags.length > 0 && (
+              <div class="stack-row">
+                {p.data.tags.slice(0, 3).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            )}
+            <a class="ed-more" href={`/projects/${p.id}`}>{p.data.status ? labCta[p.data.status] : 'Read the case study'} →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  )}
+</Base>

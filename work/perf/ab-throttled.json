@@ -1,0 +1,182 @@
+{
+ "/@390": {
+  "before": [
+   {
+    "fcp": 2632,
+    "lcp": 2632,
+    "lcpEl": "P.ed-statement",
+    "cls": 0.00028,
+    "bytes": 120961,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2648,
+    "lcp": 2648,
+    "lcpEl": "P.ed-statement",
+    "cls": 0.00028,
+    "bytes": 120468,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2588,
+    "lcp": 2588,
+    "lcpEl": "P.ed-statement",
+    "cls": 0.00028,
+    "bytes": 120468,
+    "fontBytes": 111848,
+    "fonts": 3
+   }
+  ],
+  "after": [
+   {
+    "fcp": 2608,
+    "lcp": 2608,
+    "lcpEl": "P.ed-statement",
+    "cls": 0.00028,
+    "bytes": 117494,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2736,
+    "lcp": 2736,
+    "lcpEl": "P.ed-statement",
+    "cls": 0.00028,
+    "bytes": 117494,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2548,
+    "lcp": 2548,
+    "lcpEl": "P.ed-statement",
+    "cls": 0.00028,
+    "bytes": 117494,
+    "fontBytes": 111848,
+    "fonts": 3
+   }
+  ]
+ },
+ "/@1440": {
+  "before": [
+   {
+    "fcp": 2472,
+    "lcp": 2472,
+    "lcpEl": "H1.ed-name",
+    "cls": 0.0007,
+    "bytes": 120468,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2268,
+    "lcp": 2268,
+    "lcpEl": "H1.ed-name",
+    "cls": 0.0007,
+    "bytes": 120468,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2388,
+    "lcp": 2388,
+    "lcpEl": "H1.ed-name",
+    "cls": 0.0007,
+    "bytes": 120468,
+    "fontBytes": 111848,
+    "fonts": 3
+   }
+  ],
+  "after": [
+   {
+    "fcp": 2360,
+    "lcp": 2360,
+    "lcpEl": "H1.ed-name",
+    "cls": 0.0007,
+    "bytes": 117494,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2368,
+    "lcp": 2368,
+    "lcpEl": "H1.ed-name",
+    "cls": 0.0007,
+    "bytes": 117494,
+    "fontBytes": 111848,
+    "fonts": 3
+   },
+   {
+    "fcp": 2428,
+    "lcp": 2428,
+    "lcpEl": "H1.ed-name",
+    "cls": 0.0007,
+    "bytes": 117494,
+    "fontBytes": 111848,
+    "fonts": 3
+   }
+  ]
+ },
+ "/certificates@390": {
+  "before": [
+   {
+    "fcp": 1888,
+    "lcp": 2556,
+    "lcpEl": "IMG.achievement-cert",
+    "cls": 0.00839,
+    "bytes": 345484,
+    "fontBytes": 207768,
+    "fonts": 5
+   },
+   {
+    "fcp": 1564,
+    "lcp": 2248,
+    "lcpEl": "IMG.achievement-cert",
+    "cls": 0.00839,
+    "bytes": 345484,
+    "fontBytes": 207768,
+    "fonts": 5
+   },
+   {
+    "fcp": 1376,
+    "lcp": 2160,
+    "lcpEl": "IMG.achievement-cert",
+    "cls": 0.00839,
+    "bytes": 345484,
+    "fontBytes": 207768,
+    "fonts": 5
+   }
+  ],
+  "after": [
+   {
+    "fcp": 1364,
+    "lcp": 1968,
+    "lcpEl": "IMG.achievement-cert",
+    "cls": 0.00839,
+    "bytes": 160256,
+    "fontBytes": 122400,
+    "fonts": 4
+   },
+   {
+    "fcp": 1696,
+    "lcp": 2316,
+    "lcpEl": "IMG.achievement-cert",
+    "cls": 0.00839,
+    "bytes": 257142,
+    "fontBytes": 122400,
+    "fonts": 4
+   },
+   {
+    "fcp": 1792,
+    "lcp": 2392,
+    "lcpEl": "IMG.achievement-cert",
+    "cls": 0.00839,
+    "bytes": 202862,
+    "fontBytes": 122400,
+    "fonts": 4
+   }
+  ]
+ }
+}

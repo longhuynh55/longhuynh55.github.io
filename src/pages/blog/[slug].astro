@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import { contentDate, isPublic, readingMinutes, sortSelected } from '../../lib/content';
+
+export async function getStaticPaths() {
+  // Local public posts only: drafts are excluded and external entries never
+  // generate a local page — they navigate directly to their source.
+  // Dev-only exception: `astro dev` also routes drafts so the author can
+  // preview work-in-progress at /blog/<slug> while writing. Production builds
+  // (astro build / preview) never emit draft pages — verified in check-content.
+  const dev = import.meta.env.DEV;
+  const posts = sortSelected(await getCollection('blog'), contentDate.blog)
+    .concat(dev ? (await getCollection('blog')).filter((p) => !isPublic(p) && p.data.kind === 'local') : [])
+    .filter((p) => p.data.kind === 'local');
+
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      prev: i < posts.length - 1 ? posts[i + 1] : null, // older post
+      next: i > 0 ? posts[i - 1] : null, // newer post
+    },
+  }));
+}
+
+const { post, prev, next } = Astro.props;
+const { Content, headings } = await render(post);
+if (post.data.kind !== 'local') throw new Error(`Unexpected external post routed locally: ${post.id}`);
+const { title, description, date, tags } = post.data;
+const publishedTime = date.toISOString();
+---
+
+<Base title={title} description={description} ogType="article" publishedTime={publishedTime} ogAlt={title} preloadArticleFont>
+  <p><a href="/blog" class="back-link">← Back to blog</a></p>
+
+  <article>
+    <header class="article-header article-head">
+      <p class="article-date">{date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} · {readingMinutes(post)} min read</p>
+      <h1>{title}</h1>
+      <p class="article-lede">{description}</p>
+      {
+        tags.length > 0 && (
+          <div class="tags">
+            {tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="article-layout">
+      <TableOfContents headings={headings} />
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <nav class="prev-next" aria-label="More posts">
+    {prev ? <a href={`/blog/${prev.id}`} rel="prev"><span class="prev-next-kicker">Older post</span>{prev.data.title}</a> : <a href="/blog">All posts</a>}
+    {next ? <a href={`/blog/${next.id}`} rel="next"><span class="prev-next-kicker">Newer post</span>{next.data.title}</a> : <span aria-hidden="true" />}
+  </nav>
+</Base>

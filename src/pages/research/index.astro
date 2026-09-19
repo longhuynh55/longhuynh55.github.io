@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { contentDate, sortSelected } from '../../lib/content';
+import { formatYear } from '../../lib/format';
+
+const records = sortSelected(await getCollection('research'), contentDate.research);
+---
+
+<Base title="Research" description="Research records — questions, methods, contributions and publication status.">
+  <div class="archive-head">
+    <p class="ed-eyebrow">Research</p>
+    <h1>Research</h1>
+    <p class="ed-lede">Questions, methods and contributions — with exact venue and publication status.</p>
+  </div>
+
+  {records.length === 0 ? (
+    <div>
+      <p class="muted">One workshop paper is in preparation; its record publishes here once venue and review status are verified — meanwhile, start here:</p>
+      <ul class="post-list">
+        <li><a href="/#experience">Experience</a></li>
+        <li><a href="/projects">Lab</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  ) : (
+    <div class="ed-awards">
+      {records.map((r) => (
+        <article class="award-compact">
+          <h3 class="card-title"><a href={`/research/${r.id}`}>{r.data.title}</a></h3>
+          {r.data.venue && (
+            <p class="muted">{r.data.venue}{(r.data.publishedAt ?? r.data.eventDate) ? ` · ${formatYear(r.data.publishedAt ?? r.data.eventDate)}` : ''}</p>
+          )}
+          {r.data.summary && <p class="card-desc">{r.data.summary}</p>}
+          {r.data.paperUrl && (
+            <p class="card-links">
+              <a href={r.data.paperUrl} target="_blank" rel="noopener noreferrer">Read the paper ↗</a>
+            </p>
+          )}
+        </article>
+      ))}
+    </div>
+  )}
+</Base>

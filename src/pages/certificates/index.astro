@@ -1,0 +1,97 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import { contentDate, isPublic, sortSelected } from '../../lib/content';
+import { formatMonthYear, formatYear } from '../../lib/format';
+
+const awards = sortSelected(await getCollection('achievements'), contentDate.achievement);
+
+// Render optional markdown bodies for competition achievements.
+const awardBodies = await Promise.all(
+  awards.map(async (a) => {
+    const rendered = await render(a);
+    const hasBody = (a.body ?? '').trim().length > 0;
+    return { entry: a, Content: rendered.Content, hasBody };
+  })
+);
+
+const certificates = sortSelected(await getCollection('certificates'), contentDate.certificate);
+
+// Paper lives in the research collection now — link out only when public research exists.
+const hasPublicResearch = (await getCollection('research')).some((r) => isPublic(r));
+---
+
+<Base title="Certificates" description="Certificates and competition achievements.">
+  <div class="archive-head">
+    <h1>Certificates &amp; Achievements</h1>
+    <p class="ed-lede">Competition placements with certificates on file, and verified credentials — every entry links to its evidence.</p>
+  </div>
+
+  <section>
+    <h2>Achievements</h2>
+    {
+      awardBodies.map(
+        ({ entry, Content, hasBody }) =>
+          entry.data.kind === 'competition' && (
+            <article class="card">
+              <h3 class="card-title">
+                {entry.data.title} <span class="item-rank">{entry.data.rank}</span>
+                {entry.data.teamAward && <span class="tag">Team award</span>}
+              </h3>
+              <p class="muted">{entry.data.event} · {entry.data.date ? formatYear(entry.data.date) : entry.data.year}</p>
+              {entry.data.organizer && <p class="muted">{entry.data.organizer}</p>}
+              <p class="card-desc">{entry.data.description}</p>
+              {entry.data.kind === 'competition' && entry.data.certificate && (
+                <Image
+                  src={entry.data.certificate}
+                  alt={`${entry.data.title} certificate`}
+                  class="achievement-cert"
+                  width={800}
+                  loading="lazy"
+                />
+              )}
+              {hasBody && (
+                <div class="prose">
+                  <Content />
+                </div>
+              )}
+            </article>
+          )
+      )
+    }
+  </section>
+
+  <section>
+    <h2>Certificates</h2>
+    <div class="cert-grid">
+      {
+        certificates.map((c) => (
+          <article class="card cert-card">
+            <h3 class="card-title">{c.data.title}</h3>
+            <p class="muted">{c.data.issuer}{c.data.date ? ` · ${formatMonthYear(c.data.date)}` : ''}</p>
+            {c.data.description && <p class="card-desc">{c.data.description}</p>}
+            {c.data.credentialUrl && (
+              <p class="card-links">
+                {c.data.credentialUrl.startsWith('/') ? (
+                  <a href={c.data.credentialUrl}>View scan (PDF)</a>
+                ) : (
+                  <a href={c.data.credentialUrl} target="_blank" rel="noopener noreferrer">Verify ↗</a>
+                )}
+              </p>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {hasPublicResearch && (
+    <section>
+      <h2>Research</h2>
+      <p>
+        Publications moved to <a href="/research">Research</a>.
+      </p>
+    </section>
+  )}
+</Base>

@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { contentDate, readingMinutes, resolveWritingHref, sortSelected } from '../../lib/content';
+import { formatDay } from '../../lib/format';
+
+const posts = sortSelected(await getCollection('blog'), contentDate.blog);
+const [lead, ...rest] = posts;
+---
+
+<Base title="Writing" description="Writing on data analytics, data engineering and things I'm learning.">
+  <div class="archive-head">
+    <p class="ed-eyebrow">Writing</p>
+    <h1>Writing</h1>
+    <p class="ed-lede">Notes from building — data engineering, analytics and what the work taught me.</p>
+  </div>
+  {
+    posts.length === 0 ? (
+      <div>
+        <p class="muted">Analytics-engineering notes are still in draft — meanwhile, start here:</p>
+        <ul class="post-list">
+          <li><a href="/projects">Lab case studies</a></li>
+          <li><a href="/certificates">Certificates</a></li>
+          <li><a href="/rss.xml">Subscribe via RSS</a></li>
+        </ul>
+      </div>
+    ) : (
+      lead && (
+        <div class="ed-writing">
+          <article class="writing-lead">
+            {lead.data.kind === 'external' ? (
+              <h2><a href={resolveWritingHref(lead) ?? '/blog'}>{lead.data.title} <span class="ext-indicator" aria-label="(external link)">↗</span></a></h2>
+            ) : (
+              <h2><a href={`/blog/${lead.id}`}>{lead.data.title}</a></h2>
+            )}
+            <p>{lead.data.description}</p>
+            <p class="muted">
+              {lead.data.kind === 'external'
+                ? `By ${lead.data.author} · ${lead.data.publisher} · ${lead.data.relationship}${formatDay(lead.data.date) ? ` · ${formatDay(lead.data.date)}` : ''}`
+                : `${formatDay(lead.data.date)} · ${readingMinutes(lead)} min read`}
+              {lead.data.tags.length > 0 && ` · ${lead.data.tags[0]}`}
+            </p>
+          </article>
+          {rest.length > 0 && (
+            <ul class="post-list writing-list">
+              {rest.map((post) => (
+                <li>
+                  {post.data.kind === 'external' ? (
+                    <a href={resolveWritingHref(post) ?? '/blog'}>{post.data.title} <span class="ext-indicator" aria-label="(external link)">↗</span></a>
+                  ) : (
+                    <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                  )}
+                  {post.data.kind === 'external' && (
+                    <span class="muted"> · {post.data.publisher} · {post.data.relationship}</span>
+                  )}
+                  {post.data.kind === 'local' && <span class="muted"> · {readingMinutes(post)} min read</span>}
+                  <p class="muted">{post.data.description}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )
+    )
+  }
+</Base>

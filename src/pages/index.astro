@@ -1,0 +1,289 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+import CopyControl from '../components/CopyControl.astro';
+import DiagramFigure from '../components/DiagramFigure.astro';
+import {
+  caps,
+  contentDate,
+  readingMinutes,
+  resolveRelatedWriting,
+  resolveWritingHref,
+  selectFeatured,
+  selectPublicNonFeatured,
+} from '../lib/content';
+import { formatDay, formatYear } from '../lib/format';
+
+const allProjects = await getCollection('projects');
+const labPreview = selectFeatured(allProjects, contentDate.project, caps.lab);
+const hasLabArchive = selectPublicNonFeatured(allProjects, contentDate.project).length > 0;
+
+const awards = selectFeatured(await getCollection('achievements'), contentDate.achievement, caps.awards);
+
+const allResearch = await getCollection('research');
+const researchFeature = selectFeatured(allResearch, contentDate.research, caps.research);
+
+const allWriting = await getCollection('blog');
+const creds = selectFeatured(await getCollection('certificates'), contentDate.certificate, caps.credentials);
+const writing = selectFeatured(allWriting, contentDate.blog, caps.writing);
+const [writingLead, ...writingRest] = writing;
+
+const heroCta =
+  labPreview.length > 0
+    ? { href: '#lab', label: 'Explore my work' }
+    : hasLabArchive
+      ? { href: '/projects', label: 'Explore my work' }
+      : { href: '#experience', label: 'See my experience' };
+
+const labCta: Record<string, string> = {
+  idea: 'Explore the idea',
+  exploring: 'Explore the experiment',
+  prototype: 'View the prototype',
+  released: 'View the project',
+};
+
+const job = site.experience[0];
+---
+
+<Base title={site.name} description={site.bio}>
+  <!-- Hero -->
+  <section class="ed-hero" aria-label="Introduction">
+    <div class="ed-hero-copy">
+      <p class="ed-eyebrow">Data Analyst · {site.location}</p>
+      <h1 class="ed-name">{site.name}</h1>
+      <p class="ed-role">{site.role} turning operations into decisions</p>
+      <p class="ed-statement">{site.statement}</p>
+      <div class="ed-ctas">
+        <a href={heroCta.href} class="btn">{heroCta.label}</a>
+        <a href="/resume.pdf" class="btn btn-ghost" download>View CV</a>
+      </div>
+    </div>
+    <figure class="ed-figure ed-hero-fig">
+      <DiagramFigure variant="hero" />
+      <figcaption>Conceptual view of the practice — not a company system.</figcaption>
+    </figure>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="ed-section reveal" aria-label="Experience">
+    <p class="ed-eyebrow"><span class="ed-num">01</span>Experience</p>
+    <p class="ed-thesis">Turning operational data into decisions teams can act on.</p>
+    <div class="ed-exp">
+      <div class="ed-exp-meta">
+        {job.period}<br />{job.company} · {job.location}
+      </div>
+      <div class="ed-exp-body">
+        <h3>{job.role} · {job.company}</h3>
+        <ul>
+          {job.highlights.map((h) => (
+            <li>
+              {h.text}
+              {'href' in h && h.href && (
+                <>
+                  {' '}<a href={h.href}>Read the write-up <span class="arrow" aria-hidden="true">↗</span></a>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Operating principle -->
+  <aside class="ed-principle reveal" aria-label="Operating principle">
+    <p>Good analysis is only useful when it changes the next decision.</p>
+  </aside>
+
+  <!-- Achievements & Research -->
+  {(awards.length > 0 || researchFeature.length > 0) && (
+    <section id="achievements" class="ed-section" aria-label="Achievements and research">
+      <p class="ed-eyebrow"><span class="ed-num">02</span>Achievements &amp; Research</p>
+      <p class="ed-thesis">External validation — competition placements and a published first-author paper.</p>
+      {awards.length > 0 && (
+        <div class="awards-ledger">
+          {awards.map((a, i) => (
+            <article class="award-row reveal">
+              <span class="award-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div class="award-body">
+                <h3>{a.data.rank} — {a.data.title}</h3>
+                <p>{a.data.event}</p>
+              </div>
+              <span class="award-year">{a.data.date ? formatYear(a.data.date) : a.data.year}</span>
+            </article>
+          ))}
+        </div>
+      )}
+      {researchFeature.map((r) => {
+        const resources = [
+          r.data.paperUrl ? { label: 'Paper', href: r.data.paperUrl } : null,
+          r.data.preprintUrl ? { label: 'Preprint', href: r.data.preprintUrl } : null,
+          r.data.codeUrl ? { label: 'Code', href: r.data.codeUrl } : null,
+          r.data.slidesUrl ? { label: 'Slides', href: r.data.slidesUrl } : null,
+        ].filter((x): x is { label: string; href: string } => x !== null);
+        const behind = r.data.behindPost ? resolveRelatedWriting([r.data.behindPost], allWriting) : [];
+        const year = r.data.publishedAt ?? r.data.eventDate;
+        return (
+          <article id="research" class="dark-band ed-research reveal">
+            <p id="publication" class="band-kicker">
+              Research{r.data.reviewStatus ? ` · ${r.data.reviewStatus}` : ''}{r.data.publicationStatus ? ` · ${r.data.publicationStatus}` : ''}
+            </p>
+            <h3 class="band-title">{r.data.title}</h3>
+            {r.data.venue && <p class="band-meta">{r.data.venue}{year ? ` · ${formatYear(year)}` : ''}</p>}
+            {r.data.researchQuestion && <p class="band-desc">{r.data.researchQuestion}</p>}
+            {r.data.summary && <p class="band-desc">{r.data.summary}</p>}
+            {r.data.cover && <Image src={r.data.cover} alt={`${r.data.title} figure`} />}
+            {(resources.length > 0 || behind.length > 0) && (
+              <div class="band-resources">
+                {resources.map((x) => <a class="band-link" href={x.href} target="_blank" rel="noopener noreferrer">{x.label} →</a>)}
+                {behind.map((b) => <a class="band-link" href={`/blog/${b.id}`}>Behind the paper →</a>)}
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </section>
+  )}
+
+  <!-- Projects / Lab -->
+  {labPreview.length > 0 && (
+    <section id="lab" class="ed-section" aria-label="Projects lab">
+      <p id="work" class="ed-eyebrow"><span class="ed-num">03</span>Projects / Lab</p>
+      <p class="ed-thesis">Methodical experiments — every entry shows its real state.</p>
+      {labPreview.map((p, i) => (
+        <article class={`lab-feature reveal${i % 2 === 1 ? ' flip' : ''}`}>
+          {p.data.image ? (
+            <Image src={p.data.image} alt={`${p.data.title} illustration`} class="ed-figure" />
+          ) : (
+            <figure class="ed-figure" role="img" aria-label={`Conceptual diagram for ${p.data.title}`}>
+              <DiagramFigure variant="lab" labStatus={p.data.status ?? 'draft'} />
+              <figcaption>Conceptual — not a product screenshot.</figcaption>
+            </figure>
+          )}
+          <div class="lab-copy">
+            {p.data.status && <span class="state-tag">{p.data.status}</span>}
+            <h3><a href={`/projects/${p.id}`}>{p.data.title}</a></h3>
+            <p>{p.data.description}</p>
+            {p.data.status !== 'released' && p.data.hypothesis && <p>Hypothesis: {p.data.hypothesis}</p>}
+            {p.data.status === 'released' && p.data.outcome && <p class="outcome">{p.data.outcome}</p>}
+            {p.data.nextStep && <p>Next: {p.data.nextStep}</p>}
+            {p.data.tags.length > 0 && (
+              <div class="stack-row">
+                {p.data.tags.slice(0, 3).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            )}
+            <a class="ed-more" href={`/projects/${p.id}`}>{p.data.status ? labCta[p.data.status] : 'Read the case study'} →</a>
+          </div>
+        </article>
+      ))}
+    </section>
+  )}
+
+  <!-- Certifications -->
+  {creds.length > 0 && (
+    <section id="certificates" class="ed-section certs-compact" aria-label="Certifications">
+      <p class="ed-eyebrow"><span class="ed-num">04</span>Certifications</p>
+      <p class="ed-thesis">Verified credentials — each one links to its evidence.</p>
+      <ul class="item-list cert-ledger">
+        {creds.map((c, i) => (
+          <li class="reveal">
+            <span class="ledger-index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <strong>{c.data.title}</strong>
+              <p class="muted">{c.data.issuer}</p>
+            </div>
+            {c.data.date && <span class="item-date">{formatYear(c.data.date)}</span>}
+            {c.data.credentialUrl && <a href={c.data.credentialUrl} target="_blank" rel="noopener noreferrer">Verify</a>}
+          </li>
+        ))}
+      </ul>
+      <a class="ed-more" href="/certificates">All certificates →</a>
+    </section>
+  )}
+
+  <!-- Writing -->
+  {writing.length > 0 && writingLead && (
+    <section id="writing" class="ed-section" aria-label="Selected writing">
+      <p class="ed-eyebrow"><span class="ed-num">05</span>Selected Writing</p>
+      <p class="ed-thesis">Notes from building — what worked, what broke.</p>
+      <div class="ed-writing">
+        <article class="writing-lead reveal">
+          {writingLead.data.kind === 'external' ? (
+            <h3><a href={resolveWritingHref(writingLead) ?? '/blog'}>{writingLead.data.title} <span class="ext-indicator" aria-label="(external link)">↗</span></a></h3>
+          ) : (
+            <h3><a href={`/blog/${writingLead.id}`}>{writingLead.data.title}</a></h3>
+          )}
+          <p>{writingLead.data.description}</p>
+          <p class="muted">
+            {writingLead.data.kind === 'external'
+              ? `${writingLead.data.publisher} · ${writingLead.data.relationship}${formatDay(writingLead.data.date) ? ` · ${formatDay(writingLead.data.date)}` : ''}`
+              : `${formatDay(writingLead.data.date)} · ${readingMinutes(writingLead)} min read`}
+          </p>
+        </article>
+        {writingRest.length > 0 && (
+          <ul class="post-list writing-list">
+            {writingRest.map((post) => (
+              <li class="reveal">
+                {post.data.kind === 'external' ? (
+                  <a href={resolveWritingHref(post) ?? '/blog'}>{post.data.title} <span class="ext-indicator" aria-label="(external link)">↗</span></a>
+                ) : (
+                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                )}
+                {post.data.kind === 'external' && <span class="muted"> · {post.data.publisher}</span>}
+            {post.data.kind === 'local' && <span class="muted"> · {readingMinutes(post)} min read</span>}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <a class="ed-more" href="/blog">Browse writing →</a>
+    </section>
+  )}
+  <!-- About & Contact -->
+  <section id="about" class="ed-section" aria-label="About and contact">
+
+    <p class="ed-eyebrow"><span class="ed-num">06</span>About &amp; Contact</p>
+    <p class="ed-thesis">Let's turn complex operations into clearer decisions.</p>
+    <div class="ed-about">
+      <div class="ed-about-copy">
+        <p>{site.about.perspective}</p>
+        <div class="cap-groups">
+          {site.about.capabilityGroups.map((g) => (
+            <div class="skill-group">
+              <p class="skill-label">{g.label}</p>
+              <div class="tags">
+                {g.skills.map((s) => <span class="tag">{s}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div id="contact" class="ed-about-contact">
+        <h3>Contact</h3>
+        <p class="muted">Open to Data Analyst roles in Ho Chi Minh City.</p>
+        <div class="contact-cards">
+        <div class="contact-card">
+          <p class="contact-label">Email</p>
+          <a class="contact-link" href={`mailto:${site.email}`}>{site.email}</a>
+          <CopyControl value={site.email} label="Copy email" failed="Copy failed — use the email link" />
+        </div>
+        <div class="contact-card">
+          <p class="contact-label">GitHub</p>
+          <a class="contact-link" href={site.socials.github} target="_blank" rel="noopener noreferrer">@longhuynh55 ↗</a>
+        </div>
+        <div class="contact-card">
+          <p class="contact-label">LinkedIn</p>
+          <a class="contact-link" href={site.socials.linkedin} target="_blank" rel="noopener noreferrer">in/hoài-phúc-liêu ↗</a>
+        </div>
+        <div class="contact-card">
+          <p class="contact-label">CV</p>
+          <a class="contact-link" href="/resume.pdf" download>Download PDF</a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+</Base>
+

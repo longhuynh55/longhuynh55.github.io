@@ -1,0 +1,152 @@
+{
+ "/@1440": {
+  "changed": [],
+  "added": [
+   "253|BUTTON|copy-control"
+  ],
+  "removed": [
+   "253|BUTTON|copy-email"
+  ],
+  "cssBaseline": "12314/30178",
+  "cssAfter": "12297/22929"
+ },
+ "/@390": {
+  "changed": [],
+  "added": [
+   "253|BUTTON|copy-control"
+  ],
+  "removed": [
+   "253|BUTTON|copy-email"
+  ],
+  "cssBaseline": "13325/30178",
+  "cssAfter": "13308/22929"
+ },
+ "/projects@1440": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "7112/30178",
+  "cssAfter": "7093/22929"
+ },
+ "/projects@390": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "7737/30178",
+  "cssAfter": "7718/22929"
+ },
+ "/projects/hcmc-last-mile-data-platform@1440": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "7180/29292",
+  "cssAfter": "7161/22043"
+ },
+ "/projects/hcmc-last-mile-data-platform@390": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "7663/29292",
+  "cssAfter": "7644/22043"
+ },
+ "/certificates@1440": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "5801/29292",
+  "cssAfter": "5782/22043"
+ },
+ "/certificates@390": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "6315/29292",
+  "cssAfter": "6296/22043"
+ },
+ "/research@1440": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "5593/29292",
+  "cssAfter": "5574/22043"
+ },
+ "/research@390": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "6162/29292",
+  "cssAfter": "6143/22043"
+ },
+ "/research/financial-condition-guided-retrieval@1440": {
+  "changed": [],
+  "added": [
+   "66|BUTTON|copy-control"
+  ],
+  "removed": [
+   "66|BUTTON|copy-email"
+  ],
+  "cssBaseline": "6238/29292",
+  "cssAfter": "6221/22043"
+ },
+ "/research/financial-condition-guided-retrieval@390": {
+  "changed": [],
+  "added": [
+   "36|A|",
+   "38|A|is-active",
+   "66|BUTTON|copy-control"
+  ],
+  "removed": [
+   "36|A|is-active",
+   "38|A|",
+   "66|BUTTON|copy-email"
+  ],
+  "cssBaseline": "6721/29292",
+  "cssAfter": "6704/22043"
+ },
+ "/blog@1440": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "5149/29292",
+  "cssAfter": "5130/22043"
+ },
+ "/blog@390": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "5663/29292",
+  "cssAfter": "5644/22043"
+ },
+ "/404@1440": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "4985/29292",
+  "cssAfter": "4966/22043"
+ },
+ "/404@390": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "5499/29292",
+  "cssAfter": "5480/22043"
+ },
+ "/@768": {
+  "changed": [],
+  "added": [
+   "253|BUTTON|copy-control"
+  ],
+  "removed": [
+   "253|BUTTON|copy-email"
+  ],
+  "cssBaseline": "12364/30178",
+  "cssAfter": "12347/22929"
+ },
+ "/certificates@768": {
+  "changed": [],
+  "added": [],
+  "removed": [],
+  "cssBaseline": "5851/29292",
+  "cssAfter": "5832/22043"
+ }
+}

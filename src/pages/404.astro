@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+---
+
+<Base title="Page not found" description="The page you're looking for doesn't exist." noindex>
+  <section class="not-found">
+    <h1>404</h1>
+    <p class="muted">This link is stale or mistyped — try one of these instead.</p>
+    <p class="not-found-links">
+      <a href="/" class="btn btn-sm">Home</a>
+      <a href="/projects" class="btn btn-sm btn-ghost">Lab</a>
+      <a href="/certificates" class="btn btn-sm btn-ghost">Certificates</a>
+      <a href="/blog" class="btn btn-sm btn-ghost">Writing</a>
+      <a href="/resume.pdf" class="btn btn-sm btn-ghost">Resume</a>
+    </p>
+    <p class="muted">Prefer email? <a href={`mailto:${site.email}`}>{site.email}</a></p>
+  </section>
+</Base>

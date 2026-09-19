@@ -1,0 +1,89 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import { contentDate, resolveRelatedWriting, sortSelected } from '../../lib/content';
+import { formatMonthYear } from '../../lib/format';
+
+export async function getStaticPaths() {
+  // Drafts are excluded from the build entirely.
+  const projects = sortSelected(await getCollection('projects'), contentDate.project);
+
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      prev: i > 0 ? projects[i - 1] : null,
+      next: i < projects.length - 1 ? projects[i + 1] : null,
+    },
+  }));
+}
+
+const { project, prev, next } = Astro.props;
+const { Content, headings } = await render(project);
+// NOTE: `date` is the project start date, not a publication date — it is never
+// passed to article:published_time (see REDESIGN_PLAN.md §18).
+const d = project.data;
+const related = resolveRelatedWriting(d.relatedWritingIds, await getCollection('blog'));
+const evidence = d.evidence ?? [];
+---
+
+<Base title={d.title} description={d.description} ogType="article" ogAlt={d.title} preloadArticleFont>
+  <p><a href="/projects" class="back-link">← Back to lab</a></p>
+
+  <article class="case-study">
+    <header class="article-header article-head">
+      <p class="article-date">Lab{d.status ? ` · ${d.status}` : ''} · started {formatMonthYear(d.date)}{d.updatedAt ? ` · updated ${formatMonthYear(d.updatedAt)}` : ''}</p>
+      <h1>{d.title}</h1>
+      <p class="article-lede">{d.description}</p>
+      {d.status !== 'released' && d.targetOutcome && <p class="muted">Target outcome (not yet observed): {d.targetOutcome}</p>}
+      {d.status === 'released' && d.outcome && <p class="outcome">{d.outcome}</p>}
+      {d.hypothesis && <p><strong>Hypothesis:</strong> {d.hypothesis}</p>}
+      {
+        d.tags.length > 0 && (
+          <div class="tags">
+            {d.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        )
+      }
+      <div class="card-links">
+        {d.github && <a href={d.github} target="_blank" rel="noopener noreferrer">GitHub</a>}
+        {d.demo && <a href={d.demo} target="_blank" rel="noopener noreferrer">Demo</a>}
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <TableOfContents headings={headings} />
+      <div class="prose">
+        <Content />
+        {d.nextStep && (
+          <>
+            <h2>Next step</h2>
+            <p>{d.nextStep}</p>
+          </>
+        )}
+        {evidence.length > 0 && (
+          <>
+            <h2>Evidence</h2>
+            <ul>
+              {evidence.map((e) => <li><a href={e.url} target="_blank" rel="noopener noreferrer">{e.label}</a></li>)}
+            </ul>
+          </>
+        )}
+        {related.length > 0 && (
+          <>
+            <h2>Related writing</h2>
+            <ul>
+              {related.map((post) => <li><a href={`/blog/${post.id}`}>{post.data.title}</a></li>)}
+            </ul>
+          </>
+        )}
+      </div>
+    </div>
+  </article>
+
+  <nav class="prev-next" aria-label="More lab entries">
+    {prev ? <a href={`/projects/${prev.id}`} rel="prev"><span class="prev-next-kicker">Previous entry</span>{prev.data.title}</a> : <a href="/projects">All entries</a>}
+    {next ? <a href={`/projects/${next.id}`} rel="next"><span class="prev-next-kicker">Next entry</span>{next.data.title}</a> : <span aria-hidden="true" />}
+  </nav>
+</Base>

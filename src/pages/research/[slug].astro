@@ -1,0 +1,104 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CopyControl from '../../components/CopyControl.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import { contentDate, resolveRelatedWriting, sortSelected } from '../../lib/content';
+import { formatMonthYear } from '../../lib/format';
+
+export async function getStaticPaths() {
+  // Drafts never generate detail routes.
+  const records = sortSelected(await getCollection('research'), contentDate.research);
+  return records.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const d = entry.data;
+
+const year = d.publishedAt ?? d.eventDate;
+const authorLine = d.authors.map((a) => (a.role ? `${a.name} (${a.role})` : a.name)).join(', ');
+const resources = [
+  d.paperUrl ? { label: 'Paper', href: d.paperUrl } : null,
+  d.preprintUrl ? { label: 'Preprint', href: d.preprintUrl } : null,
+  d.codeUrl ? { label: 'Code', href: d.codeUrl } : null,
+  d.slidesUrl ? { label: 'Slides', href: d.slidesUrl } : null,
+].filter((x): x is { label: string; href: string } => x !== null);
+const behind =
+  d.behindPost && d.behindPost.length > 0
+    ? resolveRelatedWriting([d.behindPost], await getCollection('blog'))
+    : [];
+// Plain-text citation assembled from the verified record fields only — never
+// synthesized from memory, always visible and selectable as a fallback.
+const citation =
+  d.authors.length > 0 && d.venue
+    ? `${authorLine}${year ? ` (${year.getFullYear()})` : ''}. ${d.title}. ${d.venue}.`
+    : null;
+---
+
+<Base title={d.title} description={d.summary ?? d.title} ogType="article" ogAlt={d.title} preloadArticleFont>
+  <p><a href="/research" class="back-link">← Back to research</a></p>
+
+  <article>
+    <header class="article-header article-head">
+      <p class="article-date">
+        Research{d.reviewStatus ? ` · ${d.reviewStatus}` : ''}{d.publicationStatus ? ` · ${d.publicationStatus}` : ''}{year ? ` · ${formatMonthYear(year)}` : ''}
+      </p>
+      <h1>{d.title}</h1>
+      {d.venue && <p class="article-lede">{d.venue}</p>}
+      {authorLine && <p class="muted">{authorLine}</p>}
+      {(resources.length > 0 || behind.length > 0) && (
+        <div class="card-links">
+          {resources.map((x) => <a href={x.href} target="_blank" rel="noopener noreferrer">{x.label}</a>)}
+          {behind.map((b) => <a href={`/blog/${b.id}`}>Behind the paper</a>)}
+        </div>
+      )}
+    </header>
+
+    <div class="article-layout">
+      <TableOfContents headings={headings} />
+      <div class="prose">
+        {d.researchQuestion && (
+          <>
+            <h2>Research question</h2>
+            <p>{d.researchQuestion}</p>
+          </>
+        )}
+        {d.cover && (
+          <figure class="ed-figure">
+            <Image src={d.cover} alt={`${d.title} method figure`} />
+            <figcaption>Method figure from the paper record.</figcaption>
+          </figure>
+        )}
+        {d.contribution && (
+          <>
+            <h2>Contribution</h2>
+            <p>{d.contribution}</p>
+          </>
+        )}
+        <Content />
+        {d.limitations && (
+          <>
+            <h2>Limitations</h2>
+            <p>{d.limitations}</p>
+          </>
+        )}
+        {citation && (
+          <>
+            <h2>Cite</h2>
+            <p>{citation}</p>
+            <p>
+              <CopyControl
+                value={citation}
+                label="Cite this work"
+                done="Citation copied"
+                failed="Copy failed — select the citation text manually"
+              />
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  </article>
+</Base>

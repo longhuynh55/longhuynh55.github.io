@@ -1,0 +1,90 @@
+<!doctype html>
+<!-- Prototype B — Research notebook (bounded comparison). Same palette, content, order, components as A.
+     Only the first three sections change into a restrained notebook treatment: figure captions + margin
+     annotations, no paper textures/handwriting. Isolated preview under work/, never a production route. -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prototype B — Research notebook</title>
+<style>
+  :root{
+    --color-bg:#F7F5EF; --color-surface:#FFFEFA; --color-surface-muted:#ECEEE7;
+    --color-text:#202722; --color-text-muted:#59645C; --color-accent:#285640;
+    --color-accent-hover:#1B402E; --color-accent-ink:#214A35; --color-spot:#C9E875;
+    --color-ink-block:#173B2C; --color-border:#D4DBD1; --color-tag-bg:#E3EBDD;
+    --color-on-ink:#F3F5EC; --color-on-ink-muted:#C2D1C4; --color-on-ink-faint:#ACBFAF;
+    --color-focus:#285640; --color-focus-on-ink:#C9E875;
+  }
+  [data-theme="dark"]{
+    --color-bg:#151917; --color-surface:#1D2320; --color-surface-muted:#262E29;
+    --color-text:#F3F4ED; --color-text-muted:#B1BDB3; --color-accent:#91C8A5;
+    --color-accent-hover:#B7DFBF; --color-accent-ink:#B7DFBF; --color-spot:#C9E875;
+    --color-ink-block:#102B20; --color-border:#455349; --color-tag-bg:#2A3B30;
+    --color-on-ink:#F3F5EC; --color-on-ink-muted:#C2D1C4; --color-on-ink-faint:#ACBFAF;
+    --color-focus:#C9E875; --color-focus-on-ink:#C9E875;
+  }
+  *{box-sizing:border-box} body{margin:0;background:var(--color-bg);color:var(--color-text);
+    font:17px/1.65 "Inter",system-ui,sans-serif}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  @media(max-width:1023px){.wrap{padding:0 32px}} @media(max-width:767px){.wrap{padding:0 20px}}
+  .proto-bar{font:13px/1.5 "JetBrains Mono",monospace;background:var(--color-tag-bg);color:var(--color-accent-ink);
+    padding:8px 0;border-bottom:1px solid var(--color-border)}
+  section{padding:112px 0} @media(max-width:767px){section{padding:64px 0}}
+  .note{display:grid;grid-template-columns:8fr 4fr;gap:24px}
+  @media(max-width:767px){.note{grid-template-columns:1fr}}
+  .margin{border-left:2px solid var(--color-spot);padding-left:16px;font-size:14px;color:var(--color-text-muted)}
+  h1.name{font-family:"Space Grotesk",sans-serif;font-size:clamp(44px,8vw,104px);line-height:1.02;margin:.2em 0}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--color-text-muted)}
+  figure{margin:0;border:1px solid var(--color-border);border-radius:10px;background:var(--color-surface);padding:16px}
+  figcaption{font-size:13px;color:var(--color-text-muted);margin-top:8px}
+  .btn{display:inline-block;padding:12px 20px;min-height:44px;background:var(--color-accent);color:var(--color-surface);
+    border-radius:8px;text-decoration:none;font-weight:600}
+  .btn.ghost{background:transparent;color:var(--color-accent);border:1px solid var(--color-accent)}
+  :focus-visible{outline:3px solid var(--color-focus);outline-offset:3px}
+  .research{background:var(--color-ink-block);color:var(--color-on-ink);border-radius:12px;padding:32px}
+  .research .mono{color:var(--color-on-ink-muted)} .research a{color:var(--color-on-ink)}
+  .research :focus-visible{outline-color:var(--color-focus-on-ink)}
+  .lab{display:grid;grid-template-columns:7fr 5fr;gap:24px;margin-top:48px}
+  @media(max-width:767px){.lab{grid-template-columns:1fr}}
+  .tag{display:inline-block;background:var(--color-tag-bg);color:var(--color-accent-ink);border-radius:6px;padding:2px 8px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="proto-bar"><div class="wrap">PROTOTYPE B — internal composition study · notebook variation · paper UNVERIFIED · Lab PROVISIONAL · <button id="t" type="button">toggle theme</button></div></div>
+<div class="wrap">
+  <section aria-label="Hero notebook">
+    <div class="note">
+      <div><p class="mono">Fig. 01 — identity · Data Analyst, HCMC</p>
+        <h1 class="name">Liêu Hoài Phúc</h1>
+        <p><strong>Data Analyst turning operations into decisions</strong></p>
+        <p style="max-width:38ch">I build data systems that turn operations into decisions — from warehouse layers and automated reporting to methodical experiments and research.</p>
+        <p><a class="btn" href="#lab">Explore my work</a> <a class="btn ghost" href="/resume.pdf">View CV</a></p>
+        <figure><svg viewBox="0 0 320 120" width="100%" role="img" aria-label="Conceptual sources to insights figure"><g font-size="10" font-family="monospace" fill="currentColor"><rect x="8" y="30" width="80" height="30" rx="6" fill="none" stroke="currentColor"/><text x="18" y="50">sources</text><rect x="120" y="30" width="80" height="30" rx="6" fill="none" stroke="currentColor"/><text x="130" y="50">transform</text><rect x="232" y="30" width="80" height="30" rx="6" fill="none" stroke="currentColor"/><text x="242" y="50">insight</text><line x1="88" y1="45" x2="120" y2="45" stroke="currentColor"/><line x1="200" y1="45" x2="232" y2="45" stroke="currentColor"/></g></svg>
+        <figcaption>Fig. 01 — conceptual practice, not a company system.</figcaption></figure>
+      </div>
+      <aside class="margin"><p><strong>Margin note.</strong> Notebook treatment: same order and components as A; only captions and margin rules change.</p><p>Statement 30 words; name wraps naturally with diacritics intact.</p></aside>
+    </div>
+  </section>
+  <section aria-label="Experience notebook"><div class="note">
+    <div><p class="mono">Experience · CASK 01/2026–05/2026</p><h2>One feature, not a stretched timeline</h2>
+      <ul><li>Warehouse and reporting layers.</li><li>Automated recurring workflows.</li><li>Reusable KPI logic with checks.</li></ul></div>
+    <aside class="margin">Margin note — article link appears only when the generalized CASK article is public.</aside>
+  </div></section>
+  <section aria-label="Achievements and Research notebook">
+    <p class="mono">Achievements &amp; Research · Fig. 02</p>
+    <ul><li>Finnovative Hackathon 2026 — 1st Place (17-01-2026, evidence on file)</li>
+    <li>DAZONE 2025 — Top 10 Finalist (exact date unverified)</li></ul>
+    <div class="research"><p class="mono">Research feature · UNVERIFIED prototype copy</p>
+      <h2>Financial-Condition-Guided Retrieval for Adaptive Bayesian Decision Forecasting Under Structural Breaks</h2>
+      <p class="mono">DMO Fintech 2026 Workshop @ PAKDD, Hong Kong · status unverified</p>
+      <p>Same question, contribution, and valid-links-only rule as A.</p></div>
+  </section>
+  <section id="lab" aria-label="Lab sample"><p class="mono">Projects / Lab · shared sample (identical to A)</p>
+    <div class="lab"><figure>Lab graphic 1<figcaption>Concept diagram, PROVISIONAL: Exploring.</figcaption></figure>
+      <div><span class="tag">Exploring</span><h2>HCMC Last-Mile Data Platform</h2></div></div>
+  </section>
+</div>
+<script>document.getElementById('t').onclick=()=>{const h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light'};</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+[
+ {
+  "route": "/",
+  "width": 1440,
+  "dark": false,
+  "before": {
+   "h": 6269,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 6269,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/",
+  "width": 390,
+  "dark": false,
+  "before": {
+   "h": 7665,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 7665,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/",
+  "width": 1440,
+  "dark": true,
+  "before": {
+   "h": 6269,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 6269,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/certificates",
+  "width": 1440,
+  "dark": false,
+  "before": {
+   "h": 3582,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 3582,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/certificates",
+  "width": 390,
+  "dark": false,
+  "before": {
+   "h": 3266,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 3266,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/research",
+  "width": 1440,
+  "dark": false,
+  "before": {
+   "h": 901,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 901,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/research/financial-condition-guided-retrieval",
+  "width": 1440,
+  "dark": false,
+  "before": {
+   "h": 2566,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 2566,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/research/financial-condition-guided-retrieval",
+  "width": 390,
+  "dark": false,
+  "before": {
+   "h": 3748,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 3748,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/projects",
+  "width": 1440,
+  "dark": false,
+  "before": {
+   "h": 1520,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 1520,
+   "w": 1440,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/blog",
+  "width": 390,
+  "dark": false,
+  "before": {
+   "h": 787,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 787,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  }
+ },
+ {
+  "route": "/404",
+  "width": 390,
+  "dark": false,
+  "before": {
+   "h": 994,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  },
+  "after": {
+   "h": 994,
+   "w": 390,
+   "reveals": 0,
+   "imgs": 0
+  }
+ }
+]
