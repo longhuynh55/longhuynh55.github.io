@@ -26,8 +26,8 @@ latest_posts:
 
 I'm a **Data Analyst and researcher** in Ho Chi Minh City, finishing my undergraduate studies at the University of Economics and Law (VNU-HCM). My work sits between **analytics engineering** and **forecasting research**: I build pipelines and KPI layers that teams can trust, and I study how probabilistic models adapt when markets break.
 
-Most recently at **CASK**, I built warehouse and reporting layers and automated recurring SQL, Power BI and Python workflows. On the research side, I'm first author of a [PAKDD 2026 workshop paper](/publications/) (Springer LNCS) on retrieval-guided Bayesian forecasting under structural breaks, and my team won **1st place at the Finnovative Hackathon 2026**.
+I'm currently working at **TC-Data** (since October 2026). Previously at **CASK**, I built warehouse and reporting layers and automated recurring SQL, Power BI and Python workflows. On the research side, I'm first author of a [PAKDD 2026 workshop paper](/publications/) (Springer LNCS) on retrieval-guided Bayesian forecasting under structural breaks, and my team won **1st place at the Finnovative Hackathon 2026**.
 
-I'm currently looking for **Data Analyst / Data Scientist** roles where rigorous analysis and clear communication matter. Longer term, I plan to pursue **graduate study** in data science and probabilistic forecasting.
+In the near term I'm growing in **data analytics and analytics engineering**; my long-term goal is to become a **Data Scientist**, with **graduate study** in data science along the way.
 
 **Core tools:** SQL · Python (Pandas, Polars) · dbt · BigQuery · Power BI · Docker — full list on the [CV](/cv/).
