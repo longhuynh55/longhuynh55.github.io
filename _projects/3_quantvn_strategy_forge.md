@@ -2,10 +2,13 @@
 layout: page
 title: QuantVN Strategy Forge
 description: Web platform for Vietnamese equity quant research — visual strategy builder, backtesting engine and AI assistant.
+img: assets/img/projects/quantvn_strategy_forge.png
 importance: 1
 category: full-stack
 github: https://github.com/longhuynh55/Quantwebsite
 ---
+
+{% include figure.liquid loading="eager" path=page.img class="img-fluid rounded z-depth-1" alt=page.title %}
 
 **Stack:** TypeScript · Next.js · React · Docker · GitHub Actions — [source on GitHub](https://github.com/longhuynh55/Quantwebsite) · **Status:** functional prototype
 

@@ -2,10 +2,13 @@
 layout: page
 title: FCI-Retrieval-DLM
 description: Retrieval-guided Bayesian forecasting under structural breaks — first-author paper, PAKDD 2026 Workshop (Springer LNCS).
+img: assets/img/projects/fci_retrieval_dlm.png
 importance: 1
 category: research
 related_publications: true
 ---
+
+{% include figure.liquid loading="eager" path=page.img class="img-fluid rounded z-depth-1" alt=page.title %}
 
 **Research question.** Can retrieval of historically similar macro-financial episodes — guided by the Financial Conditions Impulse on Growth (FCI-G) index — help Bayesian forecasters adapt faster after policy-driven structural breaks?
 

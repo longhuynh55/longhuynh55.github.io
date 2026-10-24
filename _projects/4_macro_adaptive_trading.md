@@ -2,10 +2,13 @@
 layout: page
 title: Macro-Adaptive Trading System
 description: Regime-aware quant trading system — HMM regime detection, Backtrader strategies, robustness tests and a Streamlit cockpit.
+img: assets/img/projects/macro_adaptive_trading.png
 importance: 2
 category: data science
 github: https://github.com/longhuynh55/Algorithmic-Trading-System-with-Backtrader
 ---
+
+{% include figure.liquid loading="eager" path=page.img class="img-fluid rounded z-depth-1" alt=page.title %}
 
 **Stack:** Python · Backtrader · hmmlearn / ruptures · Streamlit · PostgreSQL · Docker · pytest — [source on GitHub](https://github.com/longhuynh55/Algorithmic-Trading-System-with-Backtrader)
 

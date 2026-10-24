@@ -2,10 +2,13 @@
 layout: page
 title: HCMC Last-Mile Data Platform
 description: Warehouse-first analytics pipeline for last-mile delivery — Polars, SQL marts, BigQuery, Looker Studio.
+img: assets/img/projects/hcmc_last_mile.png
 importance: 1
 category: data science
 github: https://github.com/longhuynh55/GHN-portfolio
 ---
+
+{% include figure.liquid loading="eager" path=page.img class="img-fluid rounded z-depth-1" alt=page.title %}
 
 **Stack:** Python · Polars · SQL · BigQuery · Looker Studio — [source on GitHub](https://github.com/longhuynh55/GHN-portfolio)
 
