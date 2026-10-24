@@ -24,16 +24,10 @@ latest_posts:
   enabled: false
 ---
 
-I build data systems that turn operations into decisions — from warehouse layers and automated reporting to methodical experiments and research.
+I'm a **Data Analyst and researcher** in Ho Chi Minh City, finishing my undergraduate studies at the University of Economics and Law (VNU-HCM). My work sits between **analytics engineering** and **forecasting research**: I build pipelines and KPI layers that teams can trust, and I study how probabilistic models adapt when markets break.
 
-I'm a Data Analyst in Ho Chi Minh City working across the stack — SQL, Python, dbt and BigQuery, with Power BI for reporting. At **CASK** I maintained warehouse and reporting layers and automated recurring SQL, Excel, Power BI and Python workflows. Alongside analytics work, I do research on **Bayesian forecasting under structural breaks** — my first-author paper appeared at the PAKDD 2026 DMO Fintech Workshop (Springer LNCS).
+Most recently at **CASK**, I built warehouse and reporting layers and automated recurring SQL, Power BI and Python workflows. On the research side, I'm first author of a [PAKDD 2026 workshop paper](/publications/) (Springer LNCS) on retrieval-guided Bayesian forecasting under structural breaks, and my team won **1st place at the Finnovative Hackathon 2026**.
 
-I'm open to **Data Analyst / Data Scientist** roles where evidence and clear communication matter.
+I'm currently looking for **Data Analyst / Data Scientist** roles where rigorous analysis and clear communication matter. Longer term, I plan to pursue **graduate study** in data science and probabilistic forecasting.
 
-**Toolkit**
-
-- **Analysis & reporting:** SQL, Power BI, DAX, Power Query, Excel, KPI dashboards
-- **Programming & automation:** Python, Pandas, Polars, PySpark, R
-- **Statistics & modeling:** hypothesis testing, predictive modeling, EDA, Bayesian forecasting
-- **Data engineering:** dbt, BigQuery, Airflow, Dagster, PostgreSQL, data modeling
-- **Cloud & tooling:** Google Cloud, Docker, GitHub Actions, Looker Studio
+**Core tools:** SQL · Python (Pandas, Polars) · dbt · BigQuery · Power BI · Docker — full list on the [CV](/cv/).
