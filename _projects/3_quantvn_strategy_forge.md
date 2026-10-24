@@ -1,7 +1,7 @@
 ---
 layout: page
-title: QuantVN Strategy Forge
-description: Web platform for Vietnamese equity quant research — visual strategy builder, backtesting engine and AI assistant.
+title: QuantVN
+description: Quant research platform for Vietnamese equities — automated market-data pipelines, analysis APIs, a strategy builder and a guarded finance AI assistant.
 img: assets/img/projects/quantvn_strategy_forge.png
 importance: 1
 category: full-stack
@@ -10,30 +10,24 @@ github: https://github.com/longhuynh55/Quantwebsite
 
 {% include figure.liquid loading="eager" path=page.img class="img-fluid rounded z-depth-1" alt=page.title %}
 
-**Stack:** TypeScript · Next.js · React · Docker · GitHub Actions — [source on GitHub](https://github.com/longhuynh55/Quantwebsite) · **Status:** functional prototype
+**Stack:** Python · TypeScript / Next.js · REST APIs · LangGraph · Docker · GitHub Actions — [source on GitHub](https://github.com/longhuynh55/Quantwebsite)
 
 ## Overview
 
-QuantVN Strategy Forge unifies Vietnamese equity quant research in one product: design a strategy visually, backtest it with explicit execution assumptions, inspect the universe with screener and chart tools, and validate with portfolio, factor and risk views — on HOSE datasets (2018–2025).
+QuantVN brings Vietnamese equity research into one workflow: clean market data, tools to explore it, a way to turn ideas into testable strategies, and an AI assistant that answers questions grounded in real market data.
 
 ## Problem
 
-Most retail and student quant workflows are fragmented across spreadsheets, scripts and charts. Moving from an idea to a defensible, testable strategy usually means stitching together tools that don't share state or assumptions.
+Retail and student quant workflows are usually scattered across spreadsheets, scripts and charts. Moving from an idea to a defensible, testable strategy means stitching together tools that don't share data or assumptions.
 
-## Core modules
+## What I built
 
-| Module                    | Purpose                                                          |
-| ------------------------- | ---------------------------------------------------------------- |
-| Strategy Builder          | Node-graph editor to assemble strategy logic                     |
-| Backtesting               | Metrics, equity curve, trade logs, diagnostics with cost modeling |
-| Screener + Charts         | Universe filtering and technical inspection                      |
-| Portfolio / Factor / Risk | Portfolio construction and risk checks                           |
-| Assistant                 | Guided Q&A with grounding and reliability gates                  |
+- **Market-data pipelines.** Automated OHLCV pipelines for **500+ Vietnamese stocks over 7+ years**, with data-integrity checks for research-grade quality.
+- **Analysis tools and APIs.** Custom computational analysis tools and REST APIs for exploring market data and testing research ideas.
+- **Strategy workflow.** Visual strategy builder, backtesting with execution assumptions and cost modeling, screener, charts, and portfolio / factor / risk views.
+- **Finance AI assistant.** Built with LangGraph, using multi-provider LLM routing, grounding validation and anti-hallucination guardrails.
+- **AI evaluation.** Evaluation workflows that score assistant outputs against market ground truth.
 
 ## Engineering
 
-Next.js (App Router) in strict TypeScript, with Zustand + React Query for state, Recharts and Lightweight Charts for visualization. Docker images are built and validated in CI — lint, type-check, build, plus smoke and integration QA gates before anything is considered deployable.
-
-## Status
-
-The full workflow runs locally and in Docker with CI-green builds. It is not yet a hosted public deployment.
+Fully automated CI/CD with Docker and GitHub Actions: lint, type-check, build, plus smoke and integration QA gates before anything is considered deployable.

@@ -1,10 +1,10 @@
 cv:
   name: Liêu Hoài Phúc
-  label: Data Analyst · Researcher
+  label: Data Analyst · Analytics Engineering
   email: phuclieu03@gmail.com
   location: Ho Chi Minh City, Vietnam
   image: ""
-  summary: Data Analyst working across SQL, Python, dbt and BigQuery, with Power BI for reporting. First-author researcher in Bayesian forecasting under structural breaks.
+  summary: Data Analyst working across SQL, Python, dbt, PostgreSQL and Power BI, with a first-author publication in Bayesian forecasting under structural breaks.
 
   social_networks:
     - network: GitHub
@@ -30,9 +30,22 @@ cv:
         start_date: 2026-01
         end_date: 2026-05
         highlights:
-          - Automated recurring SQL, Excel, Power BI and Python reporting workflows, reducing manual effort.
-          - Built data warehouse and reporting layers consolidating operational datasets into standardized analytics tables.
-          - Defined reusable KPI logic and validation checks, and delivered stakeholder Power BI dashboards.
+          - Built reporting and analytics layers from operational data for recurring reporting and ad hoc business analysis.
+          - Automated recurring SQL, Excel, Power BI and Python reporting workflows, cutting monthly manual reporting effort by approx. 8–10 hours.
+          - Collaborated primarily with Marketing, alongside Sales and the Board of Directors, to turn CRM and business reporting needs into Power BI dashboards, KPI views and recurring reports.
+          - Worked with Zoho CRM and Google Analytics data for customer, marketing and sales performance analysis.
+          - Defined reusable KPI logic, data cleaning rules and validation checks to improve reporting consistency and reliability.
+          - Created documentation and refresh processes for recurring management reporting and data-quality review.
+
+    Education:
+      - institution: University of Economics and Law, VNU-HCM
+        location: Ho Chi Minh City
+        area: Financial Technology
+        studyType: Bachelor
+        start_date: 2022-08
+        end_date: 2026-08
+        highlights:
+          - "Relevant areas: Finance, Banking, Data Analytics, Statistical Modeling, Econometrics, Business Intelligence, Database Systems"
 
     Publications:
       - title: Financial-Condition-Guided Retrieval for Adaptive Bayesian Decision Forecasting Under Structural Breaks
@@ -43,7 +56,7 @@ cv:
           - Kim Le Bao Pham
           - Tin Nguyen Tri Phan
           - Son Phuc Nguyen
-        publisher: PAKDD 2026 Workshops (DMO Fintech), Springer LNAI 16603, pp. 337–348
+        publisher: DMO Fintech 2026 Workshop @ PAKDD, Hong Kong — Springer LNCS (LNAI 16603), pp. 337–348
         releaseDate: 2026-07-14
         url: https://doi.org/10.1007/978-981-92-2014-4_27
 
@@ -52,15 +65,17 @@ cv:
         date: 2026-01-17
         awarder: FESE · University of Economics and Law (VNU-HCM)
         url: /assets/pdf/certificates/finnovative-hackathon-2026.pdf
-        summary: RWA tokenization prototype combining invoice data pipelines, contract risk scoring and an investor dashboard.
+        summary: Built an RWA tokenization prototype with invoice data pipelines, contract risk scoring and an investor dashboard; designed data-driven risk scoring logic to evaluate factoring contract creditworthiness.
 
       - title: DAZONE Data Analytics Competition 2025 — Top 10 Finalist
         date: 2025
         awarder: DAZONE
+        summary: Applied Python/SQL for EDA, data cleaning, normalization and business metric design; aligned dataset characteristics with company business models to define meaningful performance indicators.
 
       - title: RMIT Business Analytics Champion 2025 — Top 15 Finalist (team)
         date: 2025
         awarder: RMIT Analytics Club
+        summary: Delivered a business analytics case solution combining KPI definition, domain research, insight generation and recommendations.
 
     Certificates:
       - name: Associate Data Analyst
@@ -73,23 +88,42 @@ cv:
         issuer: HarvardX (edX)
         icon: fa-solid fa-certificate
 
+      - name: End-to-End Data Science Workflows
+        issuer: NVIDIA Deep Learning Institute
+        icon: fa-solid fa-certificate
+
+      - name: SQL (Intermediate)
+        issuer: HackerRank
+        icon: fa-solid fa-certificate
+
     Skills:
-      - name: Analysis & Reporting
+      - name: Data Analysis & Reporting
         icon: fa-solid fa-chart-column
-        keywords: "SQL, Power BI, DAX, Power Query, Excel, KPI dashboards"
+        keywords: "SQL, Power BI, Excel, DAX, Power Query, KPI dashboards, ad hoc analysis, data cleaning, business reporting"
 
       - name: Programming & Automation
         icon: fa-solid fa-code
-        keywords: "Python, Pandas, Polars, PySpark, R, report automation"
+        keywords: "Python, Pandas, Polars, PySpark, R, workflow and report automation, data validation scripts"
 
       - name: Statistics & Modeling
         icon: fa-solid fa-square-root-variable
-        keywords: "Hypothesis testing, predictive modeling, EDA, Bayesian forecasting"
+        keywords: "Statistical analysis, hypothesis testing, predictive modeling, EDA, data validation"
 
-      - name: Data Engineering
+      - name: Data Engineering & Storage
         icon: fa-solid fa-database
-        keywords: "dbt, BigQuery, Airflow, Dagster, PostgreSQL, data modeling"
+        keywords: "Data warehouse, ETL/ELT, dbt, BigQuery, Airflow, Dagster, PostgreSQL, MySQL, MongoDB, data modeling, data quality checks"
 
-      - name: Cloud & Tooling
+      - name: Cloud & Tools
         icon: fa-solid fa-cloud
-        keywords: "Google Cloud, Docker, GitHub Actions, Looker Studio"
+        keywords: "Google Cloud, Azure, AWS, Docker, Terraform, Linux, Git, GitHub Actions, Looker Studio"
+
+      - name: AI/ML & Productivity
+        icon: fa-solid fa-robot
+        keywords: "Scikit-learn, PyTorch, LLM workflow automation, Claude Code, OpenAI Codex, AI-assisted development"
+
+    Languages:
+      - name: Vietnamese
+        summary: Native
+
+      - name: English
+        summary: APTIS B2
