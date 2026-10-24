@@ -1,24 +1,21 @@
-# Python venv
-.venv/
-
-# Node
+_site
+.bundle
+.DS_store
+.idea
+.jekyll-cache
+.jekyll-metadata
+.ruby-version
+.sass-cache
+.tweet-cache
+.venv
+assets/libs/
+assets/rendercv/rendercv_output/*.typ
+al-folio-upgrade-report.md
 node_modules/
-dist/
+output/playwright/
+test-results/
+vendor
 
-# Astro
-.astro/
-
-# Sapling / Eden metadata (workspace also uses Sapling; never push to GitHub)
-.sl/
-.hg/
-.eden/
-
-# OS / editor
-.DS_Store
-Thumbs.db
-
-# PowerShell module cache (auto-regenerates when running shells here)
-Microsoft/
-
-# Local secrets — never commit
-sshkey.txt
+# Python bytecode from bin/ helper scripts
+__pycache__/
+*.pyc

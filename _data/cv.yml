@@ -1,0 +1,85 @@
+cv:
+  name: Liêu Hoài Phúc
+  label: Data Analyst · Researcher
+  email: phuclieu03@gmail.com
+  location: Ho Chi Minh City, Vietnam
+  image: ""
+  summary: Data Analyst working across SQL, Python, dbt and BigQuery, with Power BI for reporting. First-author researcher in Bayesian forecasting under structural breaks.
+
+  social_networks:
+    - network: GitHub
+      username: longhuynh55
+    - network: LinkedIn
+      username: hoài-phúc-liêu-598321145
+
+  sections:
+    Experience:
+      - company: CASK
+        position: Data Analyst
+        location: Ho Chi Minh City
+        start_date: 2026-01
+        end_date: 2026-05
+        highlights:
+          - Automated recurring SQL, Excel, Power BI and Python reporting workflows, reducing manual effort.
+          - Built data warehouse and reporting layers consolidating operational datasets into standardized analytics tables.
+          - Defined reusable KPI logic and validation checks, and delivered stakeholder Power BI dashboards.
+
+    Publications:
+      - title: Financial-Condition-Guided Retrieval for Adaptive Bayesian Decision Forecasting Under Structural Breaks
+        authors:
+          - Liêu Hoài Phúc (first author)
+          - Binh Nguyen Y. Tran
+          - Ngoc Thi Anh Nguyen
+          - Kim Le Bao Pham
+          - Tin Nguyen Tri Phan
+          - Son Phuc Nguyen
+        publisher: PAKDD 2026 Workshops (DMO Fintech), Springer LNAI 16603, pp. 337–348
+        releaseDate: 2026-07-14
+        url: https://doi.org/10.1007/978-981-92-2014-4_27
+
+    Awards:
+      - title: Finnovative Hackathon 2026 — 1st Place (team)
+        date: 2026-01-17
+        awarder: FESE · University of Economics and Law (VNU-HCM)
+        url: /assets/pdf/certificates/finnovative-hackathon-2026.pdf
+        summary: RWA tokenization prototype combining invoice data pipelines, contract risk scoring and an investor dashboard.
+
+      - title: DAZONE Data Analytics Competition 2025 — Top 10 Finalist
+        date: 2025
+        awarder: DAZONE
+
+      - title: RMIT Business Analytics Champion 2025 — Top 15 Finalist (team)
+        date: 2025
+        awarder: RMIT Analytics Club
+
+    Certificates:
+      - name: Associate Data Analyst
+        date: 2026-08-29
+        issuer: DataCamp
+        icon: fa-solid fa-certificate
+
+      - name: Professional Certificate in Data Science
+        date: 2026-04-01
+        issuer: HarvardX (edX)
+        icon: fa-solid fa-certificate
+
+    Skills:
+      - name: Analysis & Reporting
+        icon: fa-solid fa-chart-column
+        keywords: "SQL, Power BI, DAX, Power Query, Excel, KPI dashboards"
+
+      - name: Programming & Automation
+        icon: fa-solid fa-code
+        keywords: "Python, Pandas, Polars, PySpark, R, report automation"
+
+      - name: Statistics & Modeling
+        icon: fa-solid fa-square-root-variable
+        keywords: "Hypothesis testing, predictive modeling, EDA, Bayesian forecasting"
+
+      - name: Data Engineering
+        icon: fa-solid fa-database
+        keywords: "dbt, BigQuery, Airflow, Dagster, PostgreSQL, data modeling"
+
+      - name: Cloud & Tooling
+        icon: fa-solid fa-cloud
+        keywords: "Google Cloud, Docker, GitHub Actions, Looker Studio"

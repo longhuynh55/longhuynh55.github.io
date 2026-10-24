@@ -1,97 +1,91 @@
-# AGENTS.md — Portfolio project rules
+# Agent Guidelines for al-folio (v1.x)
 
-Updated: 2026-09-06.
+**This file is the authoritative entry point for coding agents working in this repo.** Read it before making any change. It is intentionally short and tool-neutral; it links to the one place each longer-form fact lives.
 
-## Read first and determine current state
+`al-folio` v1.x is a **thin Jekyll starter, not a theme**. This repo owns starter wiring, example content, docs, and cross-plugin tests. All runtime — layouts, includes, Sass, Liquid tags, filters, feature JS — lives in versioned gems published under [`al-org-dev`](https://github.com/al-org-dev).
 
-This repository is Liêu Hoài Phúc's personal portfolio. The agreed redesign is **Data & Research Editorial**.
+## Route your change
 
-Read the relevant documents before work:
-- [DESIGN.md](DESIGN.md): visual direction, homepage order, navigation, UI behavior and accessibility.
-- [REDESIGN_PLAN.md](REDESIGN_PLAN.md): implementation phases, content schemas, migration, dependencies and acceptance; section 18 includes both audit rounds' execution clarifications.
-- [PLAN_AUDIT.md](PLAN_AUDIT.md): resolved planning findings and checks still requiring implementation.
-- [PORTFOLIO_REFERENCES.md](PORTFOLIO_REFERENCES.md): reference observations and rationale, not extra implementation requirements.
+Find your change on the left; edit only what is on the right.
 
-The latest user instruction takes priority over these local rules. Keep shared decisions synchronized across design and plan when changing them. Do not reopen agreed design choices or request repeated approval for reversible implementation within the user's request.
+| Your change                                                                                                              | Goes in                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Dependency pin, plugin activation, feature flag                                                                          | this repo: `Gemfile` **and** `_config.yml` (both — see below)                                                 |
+| Example/demo content, bibliography, data files                                                                           | this repo: `_pages`, `_posts`, `_projects`, `_news`, `_teachings`, `_books`, `_data`                          |
+| Documentation                                                                                                            | this repo: `docs/` (long-form) or this file (agent rules)                                                     |
+| Cross-plugin integration test, visual parity test                                                                        | this repo: `test/integration_*.sh`, `test/visual/`                                                            |
+| Plugin catalog metadata                                                                                                  | this repo: `_data/featured_plugins.yml`                                                                       |
+| A layout, include, or Sass partial                                                                                       | the owning gem — start with `al_folio_core`                                                                   |
+| A Liquid tag or filter, or what a tag renders                                                                            | the gem that registers it — see the [delegation table](docs/ARCHITECTURE.md#wrapper-to-tag-to-gem-delegation) |
+| Feature behavior (search, math, charts, comments, cookies, icons, CV, distill, analytics, images, newsletter, citations) | that feature's gem — see [`docs/BOUNDARIES.md`](docs/BOUNDARIES.md)                                           |
+| Component/unit test for gem-owned behavior                                                                               | the owning gem, not here                                                                                      |
+| A feature with no existing owner                                                                                         | open a plugin proposal issue first, then a standalone plugin repo                                             |
 
-At this update, the redesign documentation has been written and audited twice; that does not mean the redesign code has been implemented. Inspect actual source and working changes at the start of each task. Never assume an unchecked task is complete, or overwrite work from another session based on this historical note.
+[`docs/BOUNDARIES.md`](docs/BOUNDARIES.md) is the authoritative area-to-gem table. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) explains how the pieces connect.
 
-## Agreed product direction
+## Stop sign
 
-Homepage order:
-1. Hero
-2. Experience
-3. Achievements & Research
-4. Projects / Lab
-5. Certifications
-6. Writing
-7. About & Contact
+**If your change would create any of these paths in this repo, it belongs in a gem instead:**
 
-Keep this order on desktop and mobile. Certifications is compact; Research has its own feature within Achievements & Research. Do not restore the old 960px layout, mandatory numbered SectionRail, repeated hero stats or homepage skills matrix.
+```
+_layouts/   _includes/   _sass/   _scripts/   assets/tailwind/   tailwind.config.js   assets/webfonts/
+```
 
-Use the 1200px editorial layout, warm neutral canvas, charcoal text, forest-green research band and restrained lime accents defined in DESIGN.md. Prototype A is preferred; B is a bounded composition comparison, not another website or a new theme exploration.
+`npm run lint:style-contract` fails CI when any of them exists here, and it also rejects `build:css` / `build:tailwind` npm scripts. Do not add a starter-local Tailwind or CSS build pipeline.
 
-Keep public copy in English initially and preserve the correct Vietnamese spelling of the name. Preserve existing /projects, /blog and /certificates URLs; introduce Research routes according to the plan. Do not rename route families merely to match visible labels.
+This restriction applies to **this repo only**. A user's own site created from this template _may_ legally shadow gem-owned files — see [local overrides: your site vs. this repo](docs/ARCHITECTURE.md#local-overrides-your-site-vs-this-repo).
 
-## Environment and tooling
+## Three failures that produce no error message
 
-- The website uses Astro and Node.js. Use **pnpm**, with pnpm-lock.yaml as the dependency lockfile; do not use npm or bun for this project.
-- Use pnpm install --frozen-lockfile when dependencies need installing. Use pnpm add only for an intentional dependency change.
-- Existing scripts include pnpm run dev, pnpm run build and pnpm run preview. Inspect package.json before invoking additional checks; do not assume a test or typecheck script exists.
-- Keep the frontend static-first. Do not add a framework, animation library, CMS, WebGL or backend for cosmetic work.
-- Python is optional and separate from the site build. If needed, always use this project's .venv through uv run or the verified venv interpreter; never use system Python or install outside the project venv.
-- The existing .venv was created for Python 3.11. Check compatibility with the active OS before running it; do not assume Unix activation paths work in Windows PowerShell. If incompatible, use Node for site tasks rather than silently replacing the environment.
-- Install Python packages only into the project venv with uv pip install (or uv add if a pyproject.toml is intentionally in use). Keep .venv git-ignored.
-- Inspect git/status when available. Preserve existing changes and create a recoverable baseline before broad redesign edits. A missing Git repository does not justify discarding files.
-- Keep scratch files and prototypes in work/, outside public/ and production content globs. Keep visual evidence in design-validation/ with distinct baseline/redesign names.
+Read [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md#failure-modes-that-produce-no-error-message) for the full explanation. The short version:
 
-## Content integrity
+1. **Features fail silently.** A feature renders only when its gem is loaded _and_ its flag is on _and_ the page opts in. Otherwise the Liquid tag emits an empty string — no warning, no error.
+2. **`Gemfile` and `_config.yml` are two lists that must agree.** A plugin in only one of them is inert. Adding or removing a plugin means editing both. Repo dirs use hyphens (`al-folio-core`); gem/plugin ids use underscores (`al_folio_core`).
+3. **This repo's effective baseurl is `/al-folio`.** `_config.yml` already sets it, so a plain `bundle exec jekyll build` is correct — that is what `deploy.yml`, `broken-links-site.yml` and `axe.yml` run. Passing `--baseurl /al-folio` is redundant but harmless; blanking the baseurl out is what renders the site unstyled with broken links. Dev server is at `http://localhost:4000/al-folio/`.
 
-Content belongs in Markdown/data collections and src/config.ts. Once schemas are implemented, routine content additions should not require component edits. Schema migration itself may require coordinated application changes.
+## Validated local command set
 
-- **CASK:** present publishable experience and a generalized technical article. Do not add internal repositories, production screenshots, datasets, identifiers, credentials or proprietary architecture to this repository, public assets or deploy output. Use clearly labeled synthetic examples and newly drawn generic diagrams.
-- **Lab:** show Idea, Exploring, Prototype or Released according to actual evidence. Targets and hypotheses are not achieved outcomes. Use concept illustrations for ideas and public screenshots only when real artifacts exist.
-- **Research:** verify authorship, exact venue and publication state against the paper record. Do not turn a workshop affiliation into a main-conference claim. Review status, publication status and preprint availability are separate. Do not invent diagrams, results, dates or citations.
-- **Writing:** support local articles and outbound entries. External entries identify the publisher and author and distinguish authored from recommended material; do not generate an empty local article page for them.
-- Missing content must not block independent layout/schema work. Keep unsupported entries draft, omit unknown optional claims and continue with the publishable subset.
-- Draft filtering is not protection for files in public/. Never place confidential files there or in build fixtures.
+Run from the repo root, in this order:
 
-## Migration and implementation
+```bash
+bundle install
+npm ci
+npm run lint:prettier
+npm run lint:style-contract
+bundle exec jekyll build --baseurl /al-folio
+bash test/integration_comments.sh
+bash test/integration_plugin_toggles.sh
+bash test/integration_distill.sh
+bash test/integration_bootstrap_compat.sh
+bash test/integration_upgrade_cli.sh
+bash test/integration_css_minify.sh
+bash test/integration_new_plugins.sh
+npx playwright install chromium webkit
+npm run test:visual
+bundle exec al-folio upgrade audit
+bundle exec al-folio upgrade overrides audit
+bundle exec al-folio upgrade report
+docker compose up -d
+curl -fsS http://127.0.0.1:8080/al-folio/ >/dev/null
+docker compose logs --tail=80
+docker compose down
+```
 
-Follow phases 0–6 and tasks R01–R10 in REDESIGN_PLAN.md; they describe the same work at different levels, not two separate implementation cycles.
+All seven `test/integration_*.sh` scripts are gated by `unit-tests.yml`; run the ones your change touches. Docker note: v1 uses `/srv/jekyll/bin/entry_point.sh` and serves from container-local `/tmp/_site` to avoid host bind-mount write deadlocks.
 
-- Start with baseline/runtime inspection and a content inventory, then prototype and schema work. Do not spend another research cycle expanding scope unless a concrete unresolved issue requires it.
-- R04 must update schemas, data and all affected existing consumers together so the build remains usable. Later tasks redesign the templates; they must not be required just to repair schema breakage.
-- Paper migration includes homepage, PublicationBanner and Certificates consumers. Keep awards/credentials in their archive and link to Research instead of duplicating the paper.
-- New entries default to draft under the target schema; migrate every old entry with an explicit visibility decision. Draft schemas allow incomplete metadata; public entries must pass the required validation for their kind.
-- Use shared filtering, ordering and link-resolution helpers across homepage, archives, detail generation, previous/next, related links, RSS and sitemap.
-- Featured previews and public archives are different sets. Compute CTA and navigation destinations from the sections actually rendered; preserve archive fallbacks for public non-featured content.
-- Implement date semantics, source-aware sorting, optional external dates and related-entry IDs exactly as clarified in plan section 18. A project start date is not article publication time.
-- Keep fixture content outside production globs. Validate draft exclusion and external-link routing with meaningful fixtures rather than relying only on visual review.
-- Preserve known routes/anchors where content still exists; do not create blank anchors for private or draft entries.
-- Keep mandatory content/code/accessibility failures as failures. Missing field metrics or a draft article must be reported separately, not turned into a fabricated pass.
+## Before you open a PR
 
-## Visual implementation and validation
+- Keep starter work here; route runtime behavior to the owning plugin repo.
+- Run `npm run lint:prettier` (Prettier with `@shopify/prettier-plugin-liquid`, `printWidth: 150`). `npx prettier . --write` fixes formatting.
+- Keep docs aligned with v1 ownership, and keep each fact in one place — link rather than restate.
+- If you create or keep local overrides of plugin-owned files, run `bundle exec al-folio upgrade overrides audit` and commit `.al-folio-overrides.yml` after review.
 
-Load the design-review skill for visual work, then follow DESIGN.md.
+## Further reading
 
-- Component styles use semantic tokens. HTML theme-color may serialize literal colors from the same shared palette source; do not maintain a second independent palette.
-- Use --color-focus-on-ink on Research/footer ink surfaces. Validate actual focus ring placement and contrast; the neutral light focus color is unsuitable on the dark research band.
-- Keep diagrams readable and uncropped, including labels and Vietnamese diacritics. Reserve media dimensions to avoid layout shifts.
-- Reuse the reveal mechanism where practical, but ensure no-JS, script failure and reduced-motion states expose all content. Never make essential information hover-only.
-- Run pnpm run build for application/schema changes, plus focused logic checks appropriate to the change. Markdown-only changes need document consistency/link checks, not an application build by default.
-- Review relevant routes at 1440px, 768px and 390px in both themes; spot-check 320px and zoom. Test keyboard, navigation, missing data and reduced motion.
-- Scroll all sections before screenshots. Historical screenshots with hidden reveal content are not proof of redesign completion.
-- Report what changed, what was verified and what remains unknown. Token contrast calculations are not full UI validation; lab scores are not field Core Web Vitals.
-- Keep documentation and checklist status current when the corresponding work is actually done. Deployment is separate from local completion and requires a user request covering publication.
-
-## Repository skills
-
-Load the matching skill before its task:
-- .claude/skills/add-project/SKILL.md: project/Lab content additions.
-- .claude/skills/publish-post/SKILL.md: local/external Writing content.
-- .claude/skills/design-review/SKILL.md: visual implementation and checks.
-- .claude/skills/go-live/SKILL.md: release preparation and deployment checks when relevant.
-
-Mirrors live under .agents/skills/. Synchronize corresponding skill files when editing them. Some content skills may still describe the old schemas: use the accepted redesign documents for migration, then update these skills in the same schema implementation phase before using them for new entries. Do not follow stale examples that would republish drafts, misstate project status or restore old layouts.
-
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — how the starter and gems fit together, silent failure modes, the v1 config contract, local overrides.
+- [`docs/BOUNDARIES.md`](docs/BOUNDARIES.md) — authoritative area-to-gem ownership table and PR triage playbook.
+- [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) — contributor workflow and agent tooling.
+- [`docs/README.md`](docs/README.md) — index of all user and maintainer guides.
+- `.agents/skills/al-folio-bootstrap/SKILL.md` — new-site setup workflow.
+- `.agents/skills/al-folio-v1-migration/SKILL.md` — customized-fork migration and override drift auditing.
+- `.codex/skills` and `.claude/skills` are symlinks to `.agents/skills` for agent-specific discovery.
