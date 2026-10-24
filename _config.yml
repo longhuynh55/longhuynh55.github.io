@@ -3,9 +3,9 @@
 # -----------------------------------------------------------------------------
 
 title: blank # the website title (if blank, full name will be used instead)
-first_name: Liêu
-middle_name: Hoài
-last_name: Phúc
+first_name: ""
+middle_name:
+last_name: Liêu Hoài Phúc
 contact_note: >
   Email is the best way to reach me. I'm open to Data Analyst / Data Scientist roles and research collaborations.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
