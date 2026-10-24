@@ -9,7 +9,7 @@ category: data science
 
 {% include figure.liquid loading="eager" path=page.img class="img-fluid rounded z-depth-1" alt=page.title %}
 
-**Stack:** Supabase / PostgreSQL · Dagster · Zoho CRM · Google Analytics · Power BI · SQL · Python
+**Stack:** Supabase / PostgreSQL · Dagster · Zoho CRM · Google Analytics · Power BI · SQL · Python<br>
 **Context:** Data Analyst at CASK, Jan–May 2026 — working primarily with Marketing, alongside Sales and the Board of Directors
 
 ## Problem

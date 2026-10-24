@@ -32,7 +32,3 @@ Walk-forward NASDAQ forecasting compares FCI-Retrieval-DLM against Base-DLM and 
 ## Findings and limitations
 
 Improvements are modest and directional, concentrated in onset-centered post-event windows. Differences relative to the shuffled control remain small under the current configuration, so evidence for a distinct semantic retrieval advantage is not yet conclusive.
-
-## Publication
-
-{% cite lieu2026fciretrieval %} — [Springer](https://link.springer.com/chapter/10.1007/978-981-92-2014-4_27) · DOI [10.1007/978-981-92-2014-4_27](https://doi.org/10.1007/978-981-92-2014-4_27)

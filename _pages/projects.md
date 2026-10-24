@@ -20,6 +20,15 @@ horizontal: false
 ---
 
 <!-- pages/projects.md -->
+<style>
+  .projects h2.category {
+    color: var(--global-text-color);
+    text-align: left;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+</style>
+
 <div class="projects">
 {% for category in page.display_categories %}
   {% assign info = page.category_info[category] %}

@@ -7,10 +7,6 @@ subtitle: Data Analyst · Analytics Engineering · Ho Chi Minh City, Vietnam
 profile:
   align: right
   image_circular: false
-  more_info: >
-    <p>University of Economics and Law</p>
-    <p>VNU-HCM</p>
-    <p>Ho Chi Minh City, Vietnam</p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
