@@ -14,6 +14,16 @@ cv:
 
   sections:
     Experience:
+      - company: TC-Data
+        position: Data Analyst (Consulting)
+        location: Ho Chi Minh City
+        start_date: 2026-10
+        end_date: present
+        highlights:
+          - Work directly with clients to clarify and scope business and reporting requirements.
+          - Write metric definitions and business-logic documentation that align stakeholders before anything is built.
+          - Design data models and build Power BI reports and dashboards from the agreed definitions.
+
       - company: CASK
         position: Data Analyst
         location: Ho Chi Minh City
